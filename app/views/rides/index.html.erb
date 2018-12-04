@@ -1,0 +1,11 @@
+<% @rides.each do |ride| %>
+  <ul>
+    <li><%= ride.name %></li>
+    <li><%= ride.category %></li>
+    <li><%= ride.price %></li>
+    <%= link_to 'See more', ride_path(ride) %>
+  </ul>
+<% end %>
+
+<%= link_to "New", new_ride_path %>
+
