@@ -1,0 +1,48 @@
+.ride-show {
+  padding: 3%;
+  display: flex;
+}
+
+.ride-show-part-one {
+  height: 100vh;
+  width: 40vw;
+  position: sticky;
+  background: blue;
+  margin-right: 3%;
+}
+
+.ride-show-part-two {
+  width: 40vw;
+}
+
+.ride-photos {
+  height: 500px;
+  width: 40vw;
+  overflow: hidden;
+  background: red;
+  img {
+    height: 100%
+  }
+}
+
+.ride-show-details {
+  list-style: none;
+}
+
+.category {
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: gray;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.title {
+  font-weight: 700;
+  color: #5f5f5f;
+  font-size: 17px;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
