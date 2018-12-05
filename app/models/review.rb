@@ -1,7 +1,5 @@
 class Review < ApplicationRecord
-  belongs_to :booking
+  belongs_to :ride
 
-  validates :title, presence: true, length: {minimum: 3}
-  validates :message, allow_blank: true
-  validates :rating, presence: true
+  # validates :title, :message, :rating, presence: true
 end

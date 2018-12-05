@@ -3,6 +3,20 @@
 <%= @ride.price %>
 <%= @ride.user_id %>
 <br>
+
+<%= link_to "Add review", new_ride_review_path(@ride) %>
+
+<% @ride.reviews.each do |review| %>
+<ul>
+  <li><%= review.title %></li>
+  <li><%= review.message %></li>
+  <li><%= review.rating %></li>
+  <li><%= review.user_id %></li>
+</ul>
+
+<% end %>
+
+<br>
 <% @ride.bookings.each do |booking| %>
   <%= booking.date_begin %>
   <%= booking.date_end %>

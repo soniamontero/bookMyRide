@@ -5,5 +5,6 @@ Rails.application.routes.draw do
 
   resources :rides do
     resources :bookings
+    resources :reviews, only: [:new, :create]
   end
 end
