@@ -9,8 +9,11 @@ class ReviewsController < ApplicationController
     @ride = Ride.find(params[:ride_id])
     @review.ride_id = @ride.id
     @review.user_id = current_user.id
-    @review.save
-    redirect_to ride_path(@ride)
+    if @review.save
+      redirect_to ride_path(@ride)
+    else
+      render 'new'
+    end
   end
 
   private
