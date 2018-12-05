@@ -1,11 +1,41 @@
-<% @rides.each do |ride| %>
-  <ul>
-    <li><%= ride.name %></li>
-    <li><%= ride.category %></li>
-    <li><%= ride.price %></li>
-    <%= link_to 'See more', ride_path(ride) %>
-  </ul>
-<% end %>
+<div class="rides-index">
+  <div class="row">
+    <% @rides.each do |ride| %>
+      <div class="col-md-4">
+    <%= link_to ride_path(ride) do %>
+        <div class="card profile-card-2">
+          <div class="card-img-block">
+            <% if ride.photos.attached? %>
+              <%= image_tag ride.photos.first %>
+            <% end %>
+          </div>
 
+          <div class="card-body">
+            <% if  ride.user.avatar.attached? %>
+                <%= image_tag ride.user.avatar, class: "profile" %>
+            <% else %>
+              <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="profile-image" class="profile"/>
+              <% end %>
+            <div class="card-text">
+              <p class="card-category"><%= ride.category %> · <%= ride.location %></p>
+            </div>
+            <h5 class="card-title">
+              <%= ride.name %></li>
+            </h5>
+            <div class="card-text">
+              <p><%= ride.price %></p>
+              <% if ride.global_rating == nil %>
+                <p>No reviews yet</p>
+              <% else %>
+                <p><%= ride.global_rating %></p>
+              <% end %>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
 <%= link_to "New", new_ride_path %>
-

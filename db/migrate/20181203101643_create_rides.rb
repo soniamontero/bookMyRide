@@ -5,6 +5,7 @@ class CreateRides < ActiveRecord::Migration[5.2]
       t.string :type
       t.integer :year
       t.integer :price
+      t.string :location
 
       t.timestamps
     end

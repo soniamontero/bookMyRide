@@ -2,8 +2,12 @@
 <%= @ride.category %>
 <%= @ride.price %>
 <%= @ride.user_id %>
+<%= @ride.location %>
+<%= @ride.global_rating %>
+<% @ride.photos.each do |photo| %>
+  <%= image_tag photo %>
+<% end %>
 <br>
-
 <%= link_to "Add review", new_ride_review_path(@ride) %>
 
 <% @ride.reviews.each do |review| %>
@@ -13,9 +17,7 @@
   <li><%= review.rating %></li>
   <li><%= review.user_id %></li>
 </ul>
-
 <% end %>
-
 <br>
 <% @ride.bookings.each do |booking| %>
   <%= booking.date_begin %>

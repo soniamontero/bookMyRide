@@ -1,11 +1,15 @@
-IL A PAS DIT BONJOUR
+<div class="home">
+  <div class="home-content">
+    <h2 class='title'>
+      Pick a location and book your ride!
+    </h2>
 
-
-<%= link_to "Rides", rides_path %>
-
-<% if user_signed_in? %>
-  <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
-<% else %>
-  <%= link_to "Sign in", new_user_session_path %>
-<% end %>
+    <div class="home-form">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</div>
 

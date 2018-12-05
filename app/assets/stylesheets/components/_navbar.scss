@@ -1,4 +1,16 @@
-.logo {
-  height: 30px;
-  length: 30px;
+.logo img {
+  height: 40px;
+}
+
+.navbar {
+  justify-content: space-between;
+  height: 65px;
+}
+
+.navbar-right {
+  display: flex;
+  justify-content: space-between;
+  a {
+    margin: 10px;
+  }
 }

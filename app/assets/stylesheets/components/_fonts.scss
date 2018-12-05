@@ -1,0 +1,7 @@
+a {
+  color: gray;
+  &:hover {
+    text-decoration: none;
+    color: dark-gray;
+  }
+}

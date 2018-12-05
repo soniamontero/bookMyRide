@@ -7,6 +7,7 @@ class RidesController < ApplicationController
   end
 
   def show
+    calculate_global_rating
   end
 
   def new
@@ -28,9 +29,10 @@ class RidesController < ApplicationController
 
   def update
     if @ride.update(ride_params)
+      @ride.photos.attach(params["ride"]["photos"])
       redirect_to rides_path(@ride)
     else
-      render :new, alert: 'Something went wrong please try again.'
+      render :edit, alert: 'Something went wrong please try again.'
     end
   end
 
@@ -42,8 +44,22 @@ class RidesController < ApplicationController
 
   private
 
+  def calculate_global_rating
+    result = 0
+    ratings_number = 0
+    @ride.reviews.each do |review|
+      result += review.rating
+      ratings_number += 1
+    end
+    if ratings_number > 0
+      @ride.global_rating = result / ratings_number
+    else
+      @ride.global_rating = 0
+    end
+  end
+
   def ride_params
-    params.require(:ride).permit(:name, :year, :price, :category)
+    params.require(:ride).permit(:name, :year, :price, :category, :location, photos: [])
   end
 
   def set_ride

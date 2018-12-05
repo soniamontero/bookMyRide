@@ -1,4 +1,4 @@
-class BookingsController < ApplicationController
+  class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -40,8 +40,9 @@ class BookingsController < ApplicationController
 
   def destroy
     @ride = Ride.find(params[:ride_id])
-    @booking.destroy
-    redirect_to ride_path(@ride)
+    if @booking.destroy
+      redirect_to ride_path(@ride)
+    end
   end
 
   private
