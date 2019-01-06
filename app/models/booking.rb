@@ -2,7 +2,7 @@ class Booking < ApplicationRecord
   belongs_to :user, counter_cache: true
   belongs_to :ride
 
-  validates :date_begin, :date_end, presence: true, availability: true
+  validates :date_begin, :date_end, presence: true
   validate :date_end_after_date_begin
 
   private
