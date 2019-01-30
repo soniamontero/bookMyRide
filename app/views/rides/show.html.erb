@@ -1,0 +1,67 @@
+<div class="ride-show">
+  <div class="ride-show-part-one">
+    <div class="ride-photos">
+      <% @ride.photos.each do |photo| %>
+        <%= image_tag photo %>
+      <% end %>
+    </div>
+  </div>
+  <div class="ride-show-part-two">
+    <h5 class="category">
+      <%= @ride.category %>
+    </h5>
+    <h2>
+      <%= @ride.name %>
+    </h2>
+    <ul class="ride-show-details">
+      <li>
+        <p>
+        Location: <%= @ride.location %>
+        </p>
+      </li>
+      <li>
+        <p>
+          Price per day: €<%= @ride.price %>
+        </p>
+      </li>
+      <li>
+        <p>
+        Owner: <%= @ride.user.first_name %>
+        </p>
+      </li>
+      <li>
+        <p>
+          Global rating: <%= @ride.global_rating %>
+        </p>
+      </li>
+    </ul>
+    <br>
+
+    <% @ride.reviews.each do |review| %>
+    <ul>
+      <li><%= review.title %></li>
+      <li><%= review.message %></li>
+      <li><%= review.rating %></li>
+      <li><%= review.user_id %></li>
+    </ul>
+    <% end %>
+    <%= link_to "Add review", new_ride_review_path(@ride) %>
+
+    <br>
+    <% @ride.bookings.each do |booking| %>
+      <%= booking.date_begin %>
+      <%= booking.date_end %>
+      <%= booking.user_id %>
+      <%= link_to "Show", ride_booking_path(@ride, booking) %>
+    <% end %>
+
+    <% if current_user && current_user.id == @ride.user_id  %>
+      <%= link_to "Edit", edit_ride_path(@ride) %>
+      <%= link_to "Delete", ride_path(@ride), method: :delete, data: { confirm: 'Are you sure?' }  %>
+    <% else %>
+      <%= link_to "Book", new_ride_booking_path(@ride) %>
+    <% end %>
+
+    <%= link_to "Back", rides_path %>
+  </div>
+</div>
