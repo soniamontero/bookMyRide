@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
   end
 
   def update
@@ -14,6 +13,7 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+
   end
 
   private

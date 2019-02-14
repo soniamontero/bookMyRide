@@ -1,9 +1,18 @@
-<%= simple_form_for @user do |f| %>
-  <%= f.input :first_name %>
-  <%= f.input :last_name %>
-  <%= f.input :location %>
-  <%= f.input :owner %>
-  <%= f.input :email %>
-  <%= f.file_field :avatar %>
-  <%= f.button :submit %>
-<% end %>
+<div class="form-wrapper">
+  <div class="form-container">
+    <h3 class='text-center'>Edit Your Profile</h3>
+    <div class="form">
+      <%= simple_form_for @user do |f| %>
+        <p><%= f.input :first_name %></p>
+        <p><%= f.input :last_name %></p>
+        <p><%= f.input :location %></p>
+        <p><%= f.input :owner %></p>
+        <p><%= f.input :email %></p>
+        <p><%= f.file_field :avatar %></p>
+        <div class="centered">
+          <%= f.button :submit, class: "btn-pink" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

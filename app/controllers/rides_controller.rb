@@ -4,10 +4,10 @@ class RidesController < ApplicationController
 
   def index
     @rides = Ride.all
+    calculate_global_rating_index
   end
 
   def show
-    calculate_global_rating
   end
 
   def new
@@ -18,6 +18,7 @@ class RidesController < ApplicationController
     @ride = Ride.new(ride_params)
     @ride.user_id = current_user.id if current_user
     if @ride.save
+      @ride.photos.attach(params["ride"]["photos"])
       redirect_to rides_path
     else
       render 'new'
@@ -44,22 +45,25 @@ class RidesController < ApplicationController
 
   private
 
-  def calculate_global_rating
-    result = 0
-    ratings_number = 0
-    @ride.reviews.each do |review|
-      result += review.rating
-      ratings_number += 1
-    end
-    if ratings_number > 0
-      @ride.global_rating = result / ratings_number
-    else
-      @ride.global_rating = 0
+  def calculate_global_rating_index
+    @rides.each do |ride|
+      result = 0
+      ratings_number = 0
+        ride.reviews.each do |review|
+        result += review.rating
+        ratings_number += 1
+      end
+      if ratings_number > 0
+        ride.global_rating = result / ratings_number
+        ride.save!
+      else
+        ride.global_rating = 0
+      end
     end
   end
 
   def ride_params
-    params.require(:ride).permit(:name, :year, :price, :category, :location, photos: [])
+    params.require(:ride).permit(:name, :year, :price, :category, :location, :global_rating, photos: [])
   end
 
   def set_ride

@@ -1,22 +1,21 @@
-<%= @user.first_name %>
-<%= @user.last_name %>
-<%= @user.email %>
-<%= @user.location %>
-<%= @user.owner %>
-<br>
-<%= link_to "Edit", edit_user_path(@user) %>
-<br>
-<% @user.bookings.each do |booking| %>
-  <%= booking.date_begin %>
-  <%= booking.date_end %>
-  <%= booking.ride.name %>
-  <%= booking.user_id %>
-  <%= link_to "Show", ride_booking_path(booking.ride, booking) %>
-<% end %>
-
-<% if @user.avatar.attached? %>
-<%= image_tag @user.avatar %>
-<% else %>
-no
-<% end %>
+<div class="form-wrapper">
+  <div class="form-container edit-profile-container">
+    <h3 class='text-center'>Welcome to Your Profile</h3>
+    <div class="form edit-profile-form">
+      <%= simple_form_for @user do |f| %>
+      <div class="edit-profile-form">
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :location %>
+        <%= f.input :owner, as: :radio_buttons %>
+        <%= f.input :email %>
+        <%= f.file_field :avatar %>
+      </div>
+        <div class="centered">
+          <%= f.button :submit, class: "btn-pink" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 

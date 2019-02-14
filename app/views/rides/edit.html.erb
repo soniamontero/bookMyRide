@@ -1,10 +1,18 @@
-<%= simple_form_for @ride do |f| %>
-  <%= f.input :name %>
-  <%= f.input :category %>
-  <%= f.input :year %>
-  <%= f.input :location %>
-  <%= f.input :price %>
-  <%= f.file_field :photos %>
-
-  <%= f.button :submit %>
-<% end %>
+<div class="form-wrapper">
+  <div class="form-container">
+    <h3 class='text-center'>Add a new bike</h3>
+    <div class="form">
+      <%= simple_form_for @ride do |f| %>
+        <p><%= f.input :name %></p>
+        <p><%= f.input :category %></p>
+        <p><%= f.input :year %></p>
+        <p><%= f.input :location %></p>
+        <p><%= f.input :price %></p>
+        <p><%= f.file_field :photos %></p>
+        <div class="centered">
+          <%= f.button :submit, class: "btn-pink" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

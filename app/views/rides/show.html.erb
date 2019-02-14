@@ -1,51 +1,72 @@
-<div class="ride-show">
-  <div class="ride-show-part-one">
-    <div class="ride-photos">
-      <% @ride.photos.each do |photo| %>
-        <%= image_tag photo %>
-      <% end %>
+<div class="banner">
+  <div class="media">
+    <% @ride.photos.each do |photo| %>
+      <%= image_tag photo, class: 'img' %>
+    <% end %>
+  </div>
+</div>
+<div class="wrapper-column">
+  <div class="main-column">
+    <div class="flex-title-avatar">
+      <div class="ride-title">
+        <div class="category">
+          <%= @ride.category %>
+        </div>
+        <div class="name">
+          <%= @ride.name %>
+        </div>
+        <div class="location">
+          <%= @ride.location %>
+        </div>
+      </div>
+      <div class="avatar">
+        <%= image_tag @ride.user.avatar %>
+        <%= @ride.user.first_name %>
+      </div>
+    </div>
+
+
+    <div class="info">
+      <p style="margin-bottom: 0px;">This bike costs <strong>€<%= @ride.price %> per day</strong>.</p>
+      <p>Previous users gave it an average rating of <%= @ride.global_rating %>.</p>
     </div>
   </div>
-  <div class="ride-show-part-two">
-    <h5 class="category">
-      <%= @ride.category %>
-    </h5>
-    <h2>
-      <%= @ride.name %>
-    </h2>
-    <ul class="ride-show-details">
-      <li>
-        <p>
-        Location: <%= @ride.location %>
-        </p>
-      </li>
-      <li>
-        <p>
-          Price per day: €<%= @ride.price %>
-        </p>
-      </li>
-      <li>
-        <p>
-        Owner: <%= @ride.user.first_name %>
-        </p>
-      </li>
-      <li>
-        <p>
-          Global rating: <%= @ride.global_rating %>
-        </p>
-      </li>
-    </ul>
-    <br>
+
+  <div class="right-column">
+
+  </div>
+
+  <div class="bottom-column">
+
+    <div class="review-ratings">
+      <h3 style="margin-top: -6px;">
+        There are <%= @ride.reviews.count %> reviews
+      </h3>
+      <div class="star-ratings-sprite">
+        <span style="width: <%= @ride.stars_rating %>%" class="star-ratings-sprite-rating"></span>
+      </div>
+    </div>
 
     <% @ride.reviews.each do |review| %>
-    <ul>
-      <li><%= review.title %></li>
-      <li><%= review.message %></li>
-      <li><%= review.rating %></li>
-      <li><%= review.user_id %></li>
-    </ul>
+      <div class="review">
+        <div class="review-header">
+          <div class="review-title">
+            <strong><h5><%= review.title %></h5></strong>
+          </div>
+          <div class="review-user">
+            <p><%= review.user_first_name %></p>
+          <div class="review-user-avatar avatar">
+            <%= image_tag review.user_avatar %>
+          </div>
+          </div>
+        </div>
+
+        <div class="review-message">
+          <p><%= review.message %></p>
+        </div>
+
+      </div>
     <% end %>
-    <%= link_to "Add review", new_ride_review_path(@ride) %>
 
     <br>
     <% @ride.bookings.each do |booking| %>
@@ -55,13 +76,20 @@
       <%= link_to "Show", ride_booking_path(@ride, booking) %>
     <% end %>
 
-    <% if current_user && current_user.id == @ride.user_id  %>
-      <%= link_to "Edit", edit_ride_path(@ride) %>
-      <%= link_to "Delete", ride_path(@ride), method: :delete, data: { confirm: 'Are you sure?' }  %>
-    <% else %>
-      <%= link_to "Book", new_ride_booking_path(@ride) %>
-    <% end %>
+    <div class="bottom-column-actions">
+      <div>
+        <%= link_to "Add review", new_ride_review_path(@ride), class: "btn-bike add-review" %>
+      </div>
+      <div class='pt-3 text-center'>
+        <% if current_user && current_user.id == @ride.user_id  %>
+          <%= link_to "Edit this bike", edit_ride_path(@ride), class:'btn-bike edit-review' %>
+          <%= link_to "Delete this bike", ride_path(@ride), class: 'btn-bike delete-review', method: :delete, data: { confirm: 'Are you sure?' }  %>
+        <% else %>
+          <%= link_to "Book", new_ride_booking_path(@ride), class: "btn-bike add-review" %>
+        <% end %>
+      <%= link_to "Back", rides_path, class: 'btn-bike btn-back' %>
+      </div>
 
-    <%= link_to "Back", rides_path %>
+    </div>
   </div>
 </div>

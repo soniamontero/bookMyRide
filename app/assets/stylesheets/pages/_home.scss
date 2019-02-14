@@ -1,6 +1,7 @@
 .home {
   display: flex;
-  background-image: image-url("photo6.jpeg");
+  // background-image: image-url("photo6.jpeg"), linear-gradient(to right, #1CB5E0, #000046);
+  background-image: linear-gradient(-225deg, rgba(6, 6, 6, 0.2) 0%, rgba(0, 36, 61, 0.4) 50%), image-url("photo6.jpeg");
   background-size: cover;
   // background-position: cover;
   height: calc(100vh - 65px);
