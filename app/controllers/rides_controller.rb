@@ -3,8 +3,21 @@ class RidesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    @rides = Ride.all
+    # if params[:query].present?
+    #    sql_query = "name ILIKE :query OR location ILIKE :query"
+    #   @rides = Ride.where(sql_query, query: "%#{params[:query]}%")
+    #                .where.not(latitude: nil, longitude: nil)
+    # else
+    #   @rides = Ride.where.not(latitude: nil, longitude: nil)
+    # end
+    if params[:query].present?
+      @rides = Ride.search_by_name_and_location("Canggu")
+                   .where.not(latitude: nil, longitude: nil)
+    else
+      @rides = Ride.where.not(latitude: nil, longitude: nil)
+    end
     calculate_global_rating_index
+    mark_rides_on_map
   end
 
   def show
@@ -59,6 +72,15 @@ class RidesController < ApplicationController
       else
         ride.global_rating = 0
       end
+    end
+  end
+
+  def mark_rides_on_map
+    @markers = @rides.map do |flat|
+      {
+        lng: flat.longitude,
+        lat: flat.latitude
+      }
     end
   end
 

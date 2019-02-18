@@ -7,6 +7,17 @@ class Ride < ApplicationRecord
   validates :name, :category, :price, :location, presence: true
   validates :price, :year, numericality: { only_integer: true }
 
+  geocoded_by :location
+  after_validation :geocode, if: :will_save_change_to_location?
+
+  include PgSearch
+  pg_search_scope :search_by_name_and_location,
+    against: [ :name, :location ],
+    using: {
+      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+    }
+
+
   def average_ratings
     ratings = 0
     sum = 0

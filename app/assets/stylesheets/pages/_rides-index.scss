@@ -1,5 +1,22 @@
-.rides-index {
-  padding: 3%;
+
+.main-rides-container {
+  display: flex;
+
+  .rides-index {
+    display: flex;
+    padding: 3%;
+    width: 100%;
+    .row {
+      width: 100%;
+    }
+  }
+  #map {
+  height: 100vh;
+  position: sticky !important;
+  /*flex-basis: 450px;*/
+  flex: 0 1 450px;
+  top: 0 !important;
+  }
 }
 
 .global-rating {

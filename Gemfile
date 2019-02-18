@@ -42,6 +42,8 @@ gem 'simple_form'
 gem 'devise'
 gem 'webpacker', '~> 3.5'
 gem "geocoder"
+gem 'dotenv-rails', groups: [:development, :test]
+gem 'pg_search'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
