@@ -1,11 +1,15 @@
-  <%= form_tag rides_path, method: :get do %>
-    <%= text_field_tag :query,
-      params[:query],
-      class: "form-control",
-      placeholder: "Find a ride"
-    %>
-  <% end %>
-  <div class="main-rides-container">
+<div class="main-rides-container">
+  <div class="rides-left-column">
+      <div class="rides-index-searchbar">
+        <%= form_tag rides_path, method: :get do %>
+          <%= text_field_tag :query,
+            params[:query],
+            class: "form-control",
+            placeholder: "Find a ride"
+          %>
+        <% end %>
+      </div>
+
     <div class="rides-index">
       <div class="row">
         <% @rides.each do |ride| %>
@@ -45,10 +49,12 @@
         <% end %>
       </div>
     </div>
+
+  </div>
     <div
       id="map"
       style="
-      height: calc(100vh;"
+      height: calc(100vh - 65px);"
       data-markers="<%= @markers.to_json %>"
       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
     ></div>
