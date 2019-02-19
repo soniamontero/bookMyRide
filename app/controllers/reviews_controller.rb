@@ -1,7 +1,5 @@
 class ReviewsController < ApplicationController
   def new
-    @review = Review.new
-    @ride = Ride.find(params[:ride_id])
   end
 
   def create
@@ -10,9 +8,15 @@ class ReviewsController < ApplicationController
     @review.ride_id = @ride.id
     @review.user_id = current_user.id
     if @review.save
-      redirect_to ride_path(@ride)
+       respond_to do |format|
+        format.js  # <-- will render `app/views/reviews/create.js.erb`
+        format.html { redirect_to ride_path(@ride) }
+      end
     else
-      render 'new'
+      respond_to do |format|
+        format.html { render 'rides/show' }
+        format.js  # <-- idem
+      end
     end
   end
 

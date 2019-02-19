@@ -24,8 +24,6 @@
         <%= @ride.user.first_name %>
       </div>
     </div>
-
-
     <div class="info">
       <p style="margin-bottom: 0px;">This bike costs <strong>€<%= @ride.price %> per day</strong>.</p>
       <p>Previous users gave it an average rating of <%= @ride.global_rating %>.</p>
@@ -33,11 +31,9 @@
   </div>
 
   <div class="right-column">
-
   </div>
 
   <div class="bottom-column">
-
     <div class="review-ratings">
       <h3 style="margin-top: -6px;">
         There are <%= @ride.reviews.count %> reviews
@@ -47,28 +43,14 @@
       </div>
     </div>
 
-    <% @ride.reviews.each do |review| %>
-      <div class="review">
-        <div class="review-header">
-          <div class="review-title">
-            <strong><h5><%= review.title %></h5></strong>
-          </div>
-          <div class="review-user">
-            <p><%= review.user_first_name %></p>
-          <div class="review-user-avatar avatar">
-            <%= image_tag review.user_avatar %>
-          </div>
-          </div>
+    <div id="reviews">
+      <% @ride.reviews.each do |review| %>
+        <div class="review">
+          <%= render 'reviews/show', review: review %>
         </div>
+      <% end %>
+    </div>
 
-        <div class="review-message">
-          <p><%= review.message %></p>
-        </div>
-
-      </div>
-    <% end %>
-
-    <br>
     <% @ride.bookings.each do |booking| %>
       <%= booking.date_begin %>
       <%= booking.date_end %>
@@ -77,9 +59,7 @@
     <% end %>
 
     <div class="bottom-column-actions">
-      <div>
-        <%= link_to "Add review", new_ride_review_path(@ride), class: "btn-bike add-review" %>
-      </div>
+      <%= render 'reviews/new', ride: @ride, review: @review %>
       <div class='pt-3 text-center'>
         <% if current_user && current_user.id == @ride.user_id  %>
           <%= link_to "Edit this bike", edit_ride_path(@ride), class:'btn-bike edit-review' %>
@@ -89,7 +69,6 @@
         <% end %>
       <%= link_to "Back", rides_path, class: 'btn-bike btn-back' %>
       </div>
-
     </div>
   </div>
 </div>
