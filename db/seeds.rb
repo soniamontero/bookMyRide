@@ -40,7 +40,7 @@ rides_categories = [
   "Motorbike"
 ]
 
-sonia = User.create(
+sonia = User.new(
     first_name: "Sonia",
     last_name: "Montero",
     location: "Canggu",
@@ -48,6 +48,9 @@ sonia = User.create(
     password: "password",
     owner: true
     )
+user.remote_avatar_url = users_photos_url.sample
+user.save!
+
 ride = Ride.new(
     name: rides_names.sample,
     category: rides_categories.sample,
