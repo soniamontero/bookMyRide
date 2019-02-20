@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_15_021543) do
+ActiveRecord::Schema.define(version: 2019_02_19_064025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_02_15_021543) do
     t.integer "global_rating", default: 0
     t.float "latitude"
     t.float "longitude"
+    t.string "photo"
     t.index ["user_id"], name: "index_rides_on_user_id"
   end
 
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 2019_02_15_021543) do
     t.string "last_name"
     t.string "location"
     t.boolean "owner"
+    t.string "avatar"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

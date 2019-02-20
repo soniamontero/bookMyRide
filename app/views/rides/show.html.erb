@@ -1,8 +1,6 @@
 <div class="banner">
   <div class="media">
-    <% @ride.photos.each do |photo| %>
-      <%= image_tag photo, class: 'img' %>
-    <% end %>
+    <%= cl_image_tag @ride.photo, class: 'img' %>
   </div>
 </div>
 <div class="wrapper-column">
@@ -20,7 +18,7 @@
         </div>
       </div>
       <div class="avatar">
-        <%= image_tag @ride.user.avatar %>
+        <%= cl_image_tag @ride.user.avatar %>
         <%= @ride.user.first_name %>
       </div>
     </div>

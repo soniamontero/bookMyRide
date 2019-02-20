@@ -1,94 +1,103 @@
-photos_url = [ "https://picsum.photos/200/300?image=823", "https://picsum.photos/200/300?image=822", "https://picsum.photos/200/300?image=821", "https://picsum.photos/200/300?image=804", "https://picsum.photos/200/300?image=786", ]
+users_photos_url = [
+  "https://picsum.photos/200/300?image=823",
+  "https://picsum.photos/200/300?image=822",
+  "https://picsum.photos/200/300?image=821",
+  "https://picsum.photos/200/300?image=804",
+  "https://picsum.photos/200/300?image=786"
+]
 
-require 'faker'
-require 'open-uri'
-require 'pry-byebug'
-require 'json'
-DESK_PHOTOS = [
-'https://images.unsplash.com/photo-1526657782461-9fe13402a841?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1528557242643-e981f34a4058?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1521649415036-659258dc424f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1515965885361-f1e0095517ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1522152302542-71a8e5172aa1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1490135900376-2e86d918a23b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1523400396672-db241b5292fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1463620695885-8a91d87c53d0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1497681883844-82b4f0a359a4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1483470134942-13bbf4677d84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1486946255434-2466348c2166?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1522684894605-cdcdf44be259?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1528372444006-1bfc81acab02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-'https://images.unsplash.com/photo-1547586696-31bfb413bdf1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
+rides_photos_url = [
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550564776/anastasiia-tarasova-576846-unsplash_1.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550564789/dillon-lobo-684080-unsplash_1.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565099/lasaye-hommes-576140-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565076/tommaso-pecchioli-711600-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565063/tucker-good-731992-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565060/serge-george-540157-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565050/nick-fewings-1307214-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565050/sebastian-frohlich-371643-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565035/end-injury-260185-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565029/fatih-ozturk-1368822-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565024/nadine-shaabana-1143297-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565018/hari-nandakumar-1089470-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565013/fredrick-suwandi-502014-unsplash.jpg",
 ]
-DESK_ADDRESSES = [
-'Greengate Street, Plaistow, London E13',
-'Boundaries Road, London SW12',
-'Hans Crescent, Knightsbridge, London SW1X',
-'Faversham Avenue, North Chingford, London E4',
-'Regent Terrace, Rita Road, London SW8',
-'Hampton Street, London SE1',
-'Oswin Street, London SE11',
-'Roupell Street, London SE1',
-'Stretford Road, Hulme, Manchester M15',
-'Springdale Gardens, Manchester M20',
-'Scholes Lane, Prestwich, Manchester, Greater Manchester M25',
-'Chancel Avenue, Ordsall, Salford, Greater Manchester M5',
-'Manchester Road, Droylsden, Manchester M43',
-'Boscombe Avenue, Eccles, Manchester M30',
-'Withington Road, Whalley Range, Manchester M16',
-'Lilac Avenue, Swinton, Manchester M27'
+
+rides_names = [
+  "Vespa 2000",
+  "Turbo Vespa",
+  "Nice Motorbike",
+  "Easy Scooter",
+  "Beautiful Ride",
+  "For Rent Scooter Brand New",
+  "Amazing Vespa"
 ]
-puts 'Creating 10 users'
+
+rides_categories = [
+  "Scooter",
+  "Scooter",
+  "Scooter",
+  "Custom",
+  "Motorbike"
+]
+
+sonia = User.create(
+    first_name: "Sonia",
+    last_name: "Montero",
+    location: "Canggu",
+    email: "email@email.com",
+    password: "password",
+    owner: true
+    )
+ride = Ride.new(
+    name: rides_names.sample,
+    category: rides_categories.sample,
+    price: rand(15..98),
+    year:rand(1993..2019),
+    location: sonia.location,
+    user_id: sonia.id
+  )
+  ride.remote_photo_url = rides_photos_url.sample
+  ride.save!
+p "Sonia created and her ride created."
+
+user_counter = 1
+ride_counter = 1
+
 10.times do
   user = User.new(
-      name: Faker::Name.unique.name,
-      email: Faker::Internet.unique.email,
-      password: "123456"
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    location: Faker::Address.city,
+    email: Faker::Internet.free_email,
+    password: "password",
+    owner: true
     )
+  user.remote_avatar_url = users_photos_url.sample
   user.save!
+  p "#{user_counter} users created."
+  user_counter += 1
+  2.times do
+    ride = Ride.new(
+      name: rides_names.sample,
+      category: rides_categories.sample,
+      price: rand(15..98),
+      year:rand(1993..2019),
+      location: user.location,
+      user_id: user.id
+    )
+    ride.remote_photo_url = rides_photos_url.sample
+    ride.save!
+    p "#{ride_counter} rides created."
+    ride_counter += 1
+  end
 end
-puts 'Creating 16 listings'
-DESK_ADDRESSES.each do |a|
-    listing =Listing.new(
-      title: "#{User.all.sample.name} Place",
-      description: Faker::books::Lovecraft.paragraph,
-      location: a,
-      workhours: ["9-5","8-4","10-6","10-4"].sample,
-      kitchen: [true, false].sample,
-      price: (10..40).to_a.sample,
-      user: User.all.sample
-      )
-      listing.remote_photo_url = DESK_PHOTOS.sample
-      url = "https://api.mapbox.com/geocoding/v5/mapbox.places/#{a}.json?access_token=pk.eyJ1IjoiY2Fpb2FiaWJlIiwiYSI6ImNqcnI3M2RlNzF3ZDM0YW4zZzlocGloY24ifQ.VxwFbGxDMfroaQ686rUbDg"
-      p '1>>>>>>>>>>>'
-      response_serialized = open(url).read
-      p '2>>>>>>>>>>>>>'
-      response = JSON.parse(response_serialized)
-      listing.latitude = response.features[0].geometry.coordinates[0]
-      listing.longitude = response.features[0].geometry.coordinates[1]
-  listing.save!
-end
-puts 'Creating 100 bookings'
-20.times do
-  start_d = (1..15).to_a
-  end_d = (15..31).to_a
-    new_booking = Booking.new(
-      listing: Listing.all.sample,
-      approved: ["confirmed", "rejected", "pending"].sample,
-      start_date: Date.new(2019,3,start_d.sample),
-      end_date: Date.new(2019,3,end_d.sample),
-      user: User.all.sample
-      )
-    new_booking.save!
-      if new_booking.approved == "confirmed"
-          review =Review.new(
-            booking: new_booking,
-            content: Faker::Restaurant.review,
-            rating: (0..5).to_a.sample,
-            )
-          review.save!
-      end
-end
+
+#  booking_counter = 1
+
+# 5.times do
+#   user = User.all.sample.id
+#   booking = Booking.new( user_id: user, ride_id: User.where.not(id: user).sample.id, date_begin: Date.today + rand(10..20), date_end: Date.today + rand(21..30))
+#   booking.save
+#   p "#{booking_counter} bookings created."
+#   booking_counter += 1
+# end

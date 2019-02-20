@@ -33,7 +33,6 @@ class RidesController < ApplicationController
     @ride = Ride.new(ride_params)
     @ride.user_id = current_user.id if current_user
     if @ride.save
-      @ride.photos.attach(params["ride"]["photos"])
       redirect_to rides_path
     else
       render 'new'
@@ -45,7 +44,6 @@ class RidesController < ApplicationController
 
   def update
     if @ride.update(ride_params)
-      @ride.photos.attach(params["ride"]["photos"])
       redirect_to rides_path(@ride)
     else
       render :edit, alert: 'Something went wrong please try again.'
