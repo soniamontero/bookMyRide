@@ -1,0 +1,23 @@
+<div class="review-header">
+  <div class="review-title">
+    <strong><h5>
+      <%= review.title %>
+    </h5></strong>
+  </div>
+  <div class="review-user">
+    <p>
+      <%= review.user_first_name %>
+    </p>
+    <div class="review-user-avatar avatar">
+      <%= image_tag review.user_avatar %>
+    </div>
+  </div>
+</div>
+
+<div class="review-message">
+  <p>
+    <%= review.message %>
+  </p>
+</div>
+
+

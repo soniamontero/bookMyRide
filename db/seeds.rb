@@ -101,4 +101,3 @@ end
 #   p "#{booking_counter} bookings created."
 #   booking_counter += 1
 # end
-
