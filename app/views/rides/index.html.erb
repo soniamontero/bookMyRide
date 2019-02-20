@@ -17,14 +17,14 @@
             <%= link_to ride_path(ride) do %>
               <div class="card profile-card-2">
                 <div class="card-img-block">
-                  <% if ride.photos.attached? %>
-                    <%= image_tag ride.photos.first %>
+                  <% if ride.photo %>
+                    <%= cl_image_tag ride.photo %>
                   <% end %>
                 </div>
 
                 <div class="card-body">
-                  <% if  ride.user.avatar.attached? %>
-                    <%= image_tag ride.user.avatar, class: "profile" %>
+                  <% if  ride.user.avatar %>
+                    <%= cl_image_tag ride.user.avatar, class: "profile" %>
                   <% else %>
                     <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="profile-image" class="profile"/>
                   <% end %>

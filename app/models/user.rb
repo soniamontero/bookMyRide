@@ -6,5 +6,6 @@ class User < ApplicationRecord
 
   has_many :rides, dependent: :destroy
   has_many :bookings, dependent: :destroy
-  has_one_attached :avatar
+
+  mount_uploader :avatar, PhotoUploader
 end
