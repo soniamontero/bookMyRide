@@ -4,13 +4,14 @@ class Ride < ApplicationRecord
   has_many :reviews
 
   validates :name, :category, :price, :location, presence: true
-  validates :price, :year, numericality: { only_integer: true }
+  validates :year, numericality: { only_integer: true }
 
   geocoded_by :location
   after_validation :geocode, if: :will_save_change_to_location?
 
   mount_uploader :photo, PhotoUploader
 
+  monetize :price_cents
 
   include PgSearch
   pg_search_scope :search_by_name_and_location,

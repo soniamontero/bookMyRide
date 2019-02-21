@@ -40,6 +40,10 @@ rides_categories = [
   "Motorbike"
 ]
 
+User.destroy_all
+Ride.destroy_all
+Booking.destroy_all
+
 sonia = User.new(
     first_name: "Sonia",
     last_name: "Montero",
@@ -48,19 +52,19 @@ sonia = User.new(
     password: "password",
     owner: true
     )
-user.remote_avatar_url = users_photos_url.sample
-user.save!
+sonia.remote_avatar_url = users_photos_url.sample
+sonia.save!
 
 ride = Ride.new(
     name: rides_names.sample,
     category: rides_categories.sample,
     price: rand(15..98),
-    year:rand(1993..2019),
+    year: rand(1993..2019),
     location: sonia.location,
     user_id: sonia.id
   )
-  ride.remote_photo_url = rides_photos_url.sample
-  ride.save!
+ride.remote_photo_url = rides_photos_url.sample
+ride.save!
 p "Sonia created and her ride created."
 
 user_counter = 1
@@ -83,7 +87,7 @@ ride_counter = 1
     ride = Ride.new(
       name: rides_names.sample,
       category: rides_categories.sample,
-      price: rand(15..98),
+      price: rand(15..150),
       year:rand(1993..2019),
       location: user.location,
       user_id: user.id
