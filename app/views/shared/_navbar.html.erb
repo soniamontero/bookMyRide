@@ -5,7 +5,7 @@
       <% if current_user.rides == [] %>
         <%= link_to "Add a ride", new_ride_path %>
       <% else %>
-        <%= link_to "Your Rides", new_ride_path %>
+        <%= link_to "Your Rides", rental_dashboard_path %>
       <% end %>
     <% end %>
 
