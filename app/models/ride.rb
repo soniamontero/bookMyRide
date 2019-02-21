@@ -11,13 +11,19 @@ class Ride < ApplicationRecord
 
   mount_uploader :photo, PhotoUploader
 
-
   include PgSearch
   pg_search_scope :search_by_name_and_location,
     against: [ :name, :location ],
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
+
+
+  def has_been_booked_by_user?(user)
+    if user.bookings.pluck(:ride_id).include?(self.id)
+      user.bookings.where(ride_id: self).first.date_end < Date.today
+    end
+  end
 
 
   def average_ratings
