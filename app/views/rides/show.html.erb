@@ -57,7 +57,9 @@
     <% end %>
 
     <div class="bottom-column-actions">
-      <%= render 'reviews/new', ride: @ride, review: @review %>
+      <% if @ride.has_been_booked_by_user?(current_user) %>
+        <%= render 'reviews/new', ride: @ride, review: @review %>
+      <% end %>
       <div class='pt-3 text-center'>
         <% if current_user && current_user.id == @ride.user_id  %>
           <%= link_to "Edit this bike", edit_ride_path(@ride), class:'btn-bike edit-review' %>
