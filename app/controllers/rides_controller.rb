@@ -11,10 +11,10 @@ class RidesController < ApplicationController
     #   @rides = Ride.where.not(latitude: nil, longitude: nil)
     # end
     if params[:query].present?
-      @rides = Ride.search_by_name_and_location("Canggu")
-                   .where.not(latitude: nil, longitude: nil)
+      @rides = policy_scope(Ride.search_by_name_and_location("Canggu")
+                   .where.not(latitude: nil, longitude: nil))
     else
-      @rides = Ride.where.not(latitude: nil, longitude: nil)
+      @rides = policy_scope(Ride.where.not(latitude: nil, longitude: nil))
     end
     calculate_global_rating_index
     mark_rides_on_map
@@ -23,10 +23,12 @@ class RidesController < ApplicationController
   def show
     @ride = Ride.find(params[:id])
     @review = Review.new
+    authorize @ride
   end
 
   def new
     @ride = Ride.new
+    authorize @ride
   end
 
   def create
@@ -37,6 +39,7 @@ class RidesController < ApplicationController
     else
       render 'new'
     end
+    authorize @ride
   end
 
   def edit
@@ -48,6 +51,7 @@ class RidesController < ApplicationController
     else
       render :edit, alert: 'Something went wrong please try again.'
     end
+    authorize @ride
   end
 
   def destroy
