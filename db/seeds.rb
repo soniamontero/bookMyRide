@@ -48,8 +48,8 @@ sonia = User.new(
     password: "password",
     owner: true
     )
-user.remote_avatar_url = users_photos_url.sample
-user.save!
+sonia.remote_avatar_url = users_photos_url.sample
+sonia.save!
 
 ride = Ride.new(
     name: rides_names.sample,
