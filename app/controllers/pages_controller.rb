@@ -3,4 +3,12 @@ class PagesController < ApplicationController
 
   def home
   end
+
+  def user_dashboard
+    @user = current_user
+  end
+
+  def rental_dashboard
+    @user = current_user
+  end
 end

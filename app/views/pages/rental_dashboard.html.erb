@@ -1,0 +1,20 @@
+<h4>My Rides</h4>
+<% @user.rides.each do |ride| %>
+  <p>Name: <%= ride.name %></p>
+  <p>Category<%= ride.category %></p>
+<% end %>
+
+<h4>My Ride's Bookings</h4>
+<% @user.rides.each do |ride| %>
+  <% if ride.bookings %>
+    <% ride.bookings.each do |booking| %>
+      <p>Start date: <%= booking.date_begin %></p>
+      <p>End date: <%= booking.date_end %></p>
+      <p>Ride: <%= booking.ride.name %></p>
+      <p>Ride owner: <%= booking.ride.user.first_name %></p>
+      <p>Ride renter: <%= booking.user.first_name %></p>
+    <% end %>
+  <% else %>
+    No booking yet
+  <% end %>
+<% end %>

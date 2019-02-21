@@ -5,14 +5,14 @@
       <% if current_user.rides == [] %>
         <%= link_to "Add a ride", new_ride_path %>
       <% else %>
-        <%= link_to "Your Rides", new_ride_path %>
+        <%= link_to "Your Rides", rental_dashboard_path %>
       <% end %>
     <% end %>
 
     <%= link_to "Rides", rides_path %>
 
     <% if current_user %>
-      <%= link_to "Profile", profile_path %>
+      <%= link_to "Dashboard", dashboard_path %>
       <%= link_to "Log out", destroy_user_session_path, method: :delete %>
     <% else %>
       <%= link_to "Sign up", new_user_registration_path %>
