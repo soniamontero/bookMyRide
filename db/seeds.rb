@@ -9,7 +9,6 @@ users_photos_url = [
 rides_photos_url = [
   "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550564776/anastasiia-tarasova-576846-unsplash_1.jpg",
   "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550564789/dillon-lobo-684080-unsplash_1.jpg",
-  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565099/lasaye-hommes-576140-unsplash.jpg",
   "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565076/tommaso-pecchioli-711600-unsplash.jpg",
   "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565063/tucker-good-731992-unsplash.jpg",
   "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565060/serge-george-540157-unsplash.jpg",
@@ -48,8 +47,8 @@ sonia = User.new(
     password: "password",
     owner: true
     )
-user.remote_avatar_url = users_photos_url.sample
-user.save!
+sonia.remote_avatar_url = users_photos_url.sample
+sonia.save!
 
 ride = Ride.new(
     name: rides_names.sample,
