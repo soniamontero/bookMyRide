@@ -2,16 +2,6 @@
   <%= link_to image_tag('motorcycle.png'), root_path, class: "navbar-brand logo" %>
   <div class="navbar-right">
     <%= link_to "Bikes", rides_path %>
-
-    <% if current_user && current_user.owner? %>
-      <% if current_user.rides == [] %>
-        <%= link_to "Add a bike", new_ride_path %>
-      <% else %>
-        <%= link_to "Your Bikes", rental_dashboard_path %>
-      <% end %>
-    <% end %>
-
-
     <% if current_user %>
       <%= link_to "Dashboard", dashboard_path %>
       <%= link_to "Messages", conversations_path %>

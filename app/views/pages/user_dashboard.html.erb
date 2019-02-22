@@ -22,22 +22,27 @@
 
   <div class="user-bookings">
     <h4>Your Bookings</h4>
-    <% @user.bookings.each do |booking| %>
-    <div class="user-booking">
-      <div class="avatar">
-        <%= cl_image_tag booking.ride.photo %>
+    <% if @user.bookings == [] %>
+      <br>
+      <p>You don't have any booking yet.</p>
+      <p>Browse all our bikes and book one!</p>
+    <% else %>
+      <% @user.bookings.each do |booking| %>
+      <div class="user-booking">
+        <div class="avatar">
+          <%= cl_image_tag booking.ride.photo %>
+        </div>
+        <div class="details">
+          <p><strong>Start date:</strong> <%= booking.date_begin.to_date.to_s(:long_ordinal) %></p>
+          <p><strong>End date:</strong> <%= booking.date_end.to_date.to_s(:long_ordinal) %></p>
+          <p><strong>Ride:</strong> <%= link_to booking.ride.name, ride_path(booking.ride) %></p>
+          <p><strong>Contact the owner: <u><%= link_to "#{booking.ride.user.first_name}", conversations_path(sender_id: current_user.id, recipient_id: booking.ride.user.id), method: 'post' %></u></strong></p>
+          <% if booking.is_over? %>
+            <%= link_to 'Leave a review', ride_path(booking.ride), class: 'btn btn-primary btn-sm' %>
+          <% end %>
+        </div>
       </div>
-      <div class="details">
-        <p><strong>Start date:</strong> <%= booking.date_begin.to_date.to_s(:long_ordinal) %></p>
-        <p><strong>End date:</strong> <%= booking.date_end.to_date.to_s(:long_ordinal) %></p>
-        <p><strong>Ride:</strong> <%= link_to booking.ride.name, ride_path(booking.ride) %></p>
-        <p><strong>Contact the owner: <u><%= link_to "#{booking.ride.user.first_name}", conversations_path(sender_id: current_user.id, recipient_id: booking.ride.user.id), method: 'post' %></u></strong></p>
-        <% if booking.is_over?  %>
-          <%= link_to 'Leave a review', ride_path(booking.ride) %>
-          <button class="btn btn-primary btn-sm">Leave a review</buton>
-        <% end %>
-      </div>
-    </div>
+      <% end %>
     <% end %>
   </div>
 

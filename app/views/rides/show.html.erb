@@ -30,12 +30,15 @@
 
   <div class="right-column">
   </div>
-
   <div class="bottom-column">
     <div class="review-ratings">
-      <h3 style="margin-top: -6px;">
-        There are <%= @ride.reviews.count %> reviews
-      </h3>
+        <% if @ride.reviews == [] %>
+          <p >This bike hasn't been reviewed yet. Be the first one!</p>
+        <% else %>
+          <h3 style="margin-top: -6px;">
+            There are <%= @ride.reviews.count %> reviews
+          </h3>
+        <% end %>
       <div class="star-ratings-sprite">
         <span style="width: <%= @ride.stars_rating %>%" class="star-ratings-sprite-rating"></span>
       </div>
@@ -48,13 +51,6 @@
         </div>
       <% end %>
     </div>
-
-    <% @ride.bookings.each do |booking| %>
-      <%= booking.date_begin %>
-      <%= booking.date_end %>
-      <%= booking.user_id %>
-      <%= link_to "Show", ride_booking_path(@ride, booking) %>
-    <% end %>
 
     <div class="bottom-column-actions">
       <% if @ride.has_been_booked_by_user?(current_user) %>
