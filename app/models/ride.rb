@@ -1,7 +1,7 @@
 class Ride < ApplicationRecord
   belongs_to :user
   has_many :bookings, dependent: :destroy
-  has_many :reviews
+  has_many :reviews, through: :bookings
 
   validates :name, :category, :price, :location, presence: true
   validates :price, :year, numericality: { only_integer: true }
@@ -18,13 +18,11 @@ class Ride < ApplicationRecord
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
 
-
   def has_been_booked_by_user?(user)
     if user.bookings.pluck(:ride_id).include?(self.id)
       user.bookings.where(ride_id: self).first.date_end < Date.today
     end
   end
-
 
   def average_ratings
     ratings = 0
