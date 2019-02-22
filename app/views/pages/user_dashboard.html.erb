@@ -1,17 +1,49 @@
-<div class="user-identity">
-  Email: <%= @user.email %>
-  First name: <%= @user.first_name %>
-  Last name: <%= @user.last_name %>
-  Location: <%= @user.location %>
-  Owner: <%= @user.owner %>
-  <%#= cl_image_tag @user.avatar %>
-</div>
+<div class="user-dashboard">
+  <div class="user-identity">
+    <div class="avatar-large">
+      <%= cl_image_tag @user.avatar %>
+    </div>
+    <div class="user-details">
+      <p><strong>Email:</strong> <%= @user.email %></p>
+      <p><strong>First name:</strong> <%= @user.first_name %></p>
+      <p><strong>Last name:</strong> <%= @user.last_name %></p>
+      <p><strong>Location:</strong> <%= @user.location %></p>
+    </div>
+    <span class="divider"></span>
+    <div class="user-actions">
+      <%= link_to "Edit your profile", edit_user_path(@user) %>
+      <% if current_user.rides == [] %>
+        <%= link_to "Add a new bike", new_ride_path %>
+      <% else %>
+        <%= link_to "See your bikes", rental_dashboard_path %>
+      <% end %>
+    </div>
+  </div>
 
-<h4>My Bookings</h4>
-<% @user.bookings.each do |booking| %>
-  <p>Start date: <%= booking.date_begin %></p>
-  <p>End date: <%= booking.date_end %></p>
-  <p>Ride: <%= booking.ride.name %></p>
-  <p>Ride owner: <%= booking.ride.user.first_name %></p>
-  <br>
-<% end %>
+  <div class="user-bookings">
+    <h4>Your Bookings</h4>
+    <% if @user.bookings == [] %>
+      <br>
+      <p>You don't have any booking yet.</p>
+      <p>Browse all our bikes and book one!</p>
+    <% else %>
+      <% @user.bookings.each do |booking| %>
+      <div class="user-booking">
+        <div class="avatar">
+          <%= cl_image_tag booking.ride.photo %>
+        </div>
+        <div class="details">
+          <p><strong>Start date:</strong> <%= booking.date_begin.to_date.to_s(:long_ordinal) %></p>
+          <p><strong>End date:</strong> <%= booking.date_end.to_date.to_s(:long_ordinal) %></p>
+          <p><strong>Ride:</strong> <%= link_to booking.ride.name, ride_path(booking.ride) %></p>
+          <p><strong>Contact the owner: <u><%= link_to "#{booking.ride.user.first_name}", conversations_path(sender_id: current_user.id, recipient_id: booking.ride.user.id), method: 'post' %></u></strong></p>
+          <% if booking.is_over? %>
+            <%= link_to 'Leave a review', ride_path(booking.ride), class: 'btn btn-primary btn-sm' %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>

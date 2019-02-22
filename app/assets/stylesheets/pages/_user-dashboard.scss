@@ -1,0 +1,48 @@
+.user-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 6vw;
+}
+
+.user-identity {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 300px;
+  padding: 0 3vw 3vw 0;
+  align-items: center;
+  .avatar-large {
+    margin-bottom: 35px;
+  }
+  .user-actions {
+    display: flex;
+    flex-direction: column;
+  }
+  .divider {
+    border-top: 1px solid #e6e6e6;
+    width: 200px;
+    margin: 10px 0 20px 0;
+
+  }
+}
+
+.user-bookings {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  flex-grow: 1;
+  .user-booking {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 3px;
+    padding: 20px;
+    border-bottom: 1px solid #e6e6e6;
+    img {
+      margin-right: 10px;
+    }
+    .details {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
