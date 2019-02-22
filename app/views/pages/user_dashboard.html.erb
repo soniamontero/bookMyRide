@@ -1,17 +1,27 @@
-<div class="user-identity">
-  Email: <%= @user.email %>
-  First name: <%= @user.first_name %>
-  Last name: <%= @user.last_name %>
-  Location: <%= @user.location %>
-  Owner: <%= @user.owner %>
-  <%#= cl_image_tag @user.avatar %>
-</div>
+<div class="user-dashboard">
+  <div class="user-identity">
+    <div class="avatar-large">
+      <%= cl_image_tag @user.avatar %>
+    </div>
+    <div class="user-details">
+      <p><strong>Email:</strong> <%= @user.email %></p>
+      <p><strong>First name:</strong> <%= @user.first_name %></p>
+      <p><strong>Last name:</strong> <%= @user.last_name %></p>
+      <p><strong>Location:</strong> <%= @user.location %></p>
+    </div>
+    <%= link_to "Edit", edit_user_path(@user) %>
+  </div>
 
-<h4>My Bookings</h4>
-<% @user.bookings.each do |booking| %>
-  <p>Start date: <%= booking.date_begin %></p>
-  <p>End date: <%= booking.date_end %></p>
-  <p>Ride: <%= booking.ride.name %></p>
-  <p>Ride owner: <%= booking.ride.user.first_name %></p>
-  <br>
-<% end %>
+  <div class="user-bookings">
+    <h4>My Bookings</h4>
+    <% @user.bookings.each do |booking| %>
+    <div class="user-booking">
+      <p>Start date: <%= booking.date_begin.to_date.to_s(:long_ordinal)  %></p>
+      <p>End date: <%= booking.date_end %></p>
+      <p>Ride: <%= booking.ride.name %></p>
+      <p>Ride owner: <%= booking.ride.user.first_name %></p>
+    </div>
+    <% end %>
+  </div>
+
+</div>

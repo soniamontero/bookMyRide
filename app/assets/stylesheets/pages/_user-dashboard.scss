@@ -1,0 +1,33 @@
+.user-dashboard {
+  display: flex;
+}
+
+.user-identity {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-width: 400px;
+  min-width: 30vw;
+  padding: 3vw;
+  justify-content: center;
+  align-items: center;
+  .avatar-large {
+    margin-bottom: 35px;
+  }
+}
+
+.user-bookings {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  .user-booking {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 3px;
+    max-width: 400px;
+    min-width: 30vw;
+    padding: 20px;
+  }
+}
