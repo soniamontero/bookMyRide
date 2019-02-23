@@ -9,8 +9,6 @@
   end
 
   def new
-    @booking = Booking.new
-    @ride = Ride.find(params[:ride_id])
   end
 
   def create
@@ -19,9 +17,9 @@
     @booking.user_id = current_user.id if current_user
     @booking.ride = @ride
     if @booking.save
-      redirect_to ride_path(@ride)
+      redirect_to dashboard_path
     else
-      render 'new'
+      render ''
     end
   end
 
