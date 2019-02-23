@@ -18,6 +18,12 @@ class Ride < ApplicationRecord
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
 
+  def unavailable_dates
+    bookings.pluck(:date_begin, :date_end).map do |range|
+      { from: range[0], to: range[1] }
+    end
+  end
+
   def has_been_booked_by_user?(user)
     if user.bookings.pluck(:ride_id).include?(self.id)
       user.bookings.where(ride_id: self).first.date_end < Date.today

@@ -56,11 +56,11 @@
       <% if @ride.has_been_booked_by_user?(current_user) %>
         <%= render 'reviews/new', ride: @ride, review: @review %>
       <% end %>
-      <div class='pt-3 text-center'>
+      <div class='pt-3 text-center' id='ride-booking-dates' data-unavailable="<%= @ride.unavailable_dates.to_json %>">
         <% if current_user.id != @ride.user_id  %>
           <%= simple_form_for([@ride, @booking]) do |f| %>
-            <%= f.input :date_begin,  as: :date, label: "From", wrapper_html: { class: "inline_field_wrapper" } %>
-            <%= f.input :date_end, as: :date, label: "To", wrapper_html: { class: "inline_field_wrapper" } %>
+            <%= f.input :date_begin, as: :string, type: :text%>
+            <%= f.input :date_end, as: :string, type: :text%>
             <%= f.submit "Book", class: "btn btn-primary btn-lg btn-block btn-booking" %>
           <% end %>
         <% end %>
