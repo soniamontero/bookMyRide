@@ -77,10 +77,13 @@ class RidesController < ApplicationController
   end
 
   def mark_rides_on_map
-    @markers = @rides.map do |flat|
+    @markers = @rides.map do |ride|
       {
-        lng: flat.longitude,
-        lat: flat.latitude
+        lng: ride.longitude,
+        lat: ride.latitude,
+        infoWindow: render_to_string(
+          partial: 'infowindow', locals: { ride: ride }
+        )
       }
     end
   end
