@@ -1,7 +1,8 @@
 const startDateInput = document.getElementById('booking_date_begin');
 const endDateInput = document.getElementById('booking_date_end');
-const unavailableDates = JSON.parse(document.querySelector('#ride-booking-dates').dataset.unavailable)
 
+if (startDateInput) {
+const unavailableDates = JSON.parse(document.querySelector('#ride-booking-dates').dataset.unavailable)
 endDateInput.disabled = true
 
 flatpickr("#booking_date_begin", {
@@ -15,10 +16,13 @@ startDateInput.addEventListener("change", (e) => {
     endDateInput.disabled = false
   }
   flatpickr("#booking_date_end", {
-  minDate: e.target.value,
-  disable: unavailableDates,
-  dateFormat: "Y-m-d",
-  });
-})
+    minDate: e.target.value,
+    disable: unavailableDates,
+    dateFormat: "Y-m-d"
+    });
+  })
+};
+
+
 
 
