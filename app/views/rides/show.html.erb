@@ -54,6 +54,7 @@
 
     <div class="bottom-column-actions">
       <% if @ride.has_been_booked_by_user?(current_user) %>
+        <h4 class='text-center pt-3'>Time to review your bike!</h4>
         <%= render 'reviews/new', ride: @ride, review: @review %>
       <% end %>
       <div class='pt-3 text-center' id='ride-booking-dates' data-unavailable="<%= @ride.unavailable_dates.to_json %>">
