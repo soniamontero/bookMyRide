@@ -6,20 +6,26 @@
   end
 
   def show
+    @booking = current_user.bookings.where(state: 'paid').find(params[:id])
   end
 
   def new
   end
+
+  # order  = Order.create!(teddy_sku: teddy.sku, amount: teddy.price, state: 'pending', user: current_user)
 
   def create
     @booking = Booking.new(booking_params)
     @ride = Ride.find(params[:ride_id])
     @booking.user_id = current_user.id if current_user
     @booking.ride = @ride
+    amount = calculate_price(@booking.date_begin, @booking.date_end, @booking.ride.price)
+    @booking.amount_cents = amount
+    @booking.state = 'pending'
     if @booking.save
-      redirect_to dashboard_path
+      redirect_to new_ride_booking_payment_path(@ride, @booking)
     else
-      render ''
+      redirect_to ride_path(@ride)
     end
   end
 
@@ -45,8 +51,19 @@
 
   private
 
+  def calculate_price(date_begin, date_end, price_unprocessed)
+    price = price_unprocessed.fractional
+    number_of_days = (date_end.to_date - date_begin.to_date).to_i
+    if number_of_days == 0
+      amount = price
+    else
+      amount = number_of_days * price
+    end
+    amount
+  end
+
   def booking_params
-    params.require(:booking).permit(:date_begin, :date_end)
+    params.require(:booking).permit(:date_begin, :date_end, :state, :amount_cents)
   end
 
   def set_booking
