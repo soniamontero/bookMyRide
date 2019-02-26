@@ -21,7 +21,7 @@ class Booking < ApplicationRecord
   private
 
   def not_overlapping_other_bookings
-    if Booking.overlapping(date_begin, date_end).any?
+    if Booking.where(ride_id: ride.id).overlapping(date_begin, date_end).any?
       errors.add(:date_end, 'overlaps another booking')
     end
   end
