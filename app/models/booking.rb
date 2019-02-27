@@ -18,6 +18,15 @@ class Booking < ApplicationRecord
     self.date_end < Date.today
   end
 
+  def number_of_days
+    days = (self.date_end.to_date - self.date_begin.to_date).to_i
+    if days == 0
+      return '1 day'
+    else
+      return "#{days} days"
+    end
+  end
+
   private
 
   def not_overlapping_other_bookings

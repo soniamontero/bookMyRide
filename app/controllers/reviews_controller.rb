@@ -5,7 +5,6 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    byebug
     @review = Review.new(review_params)
     @ride = Ride.find(params[:ride_id])
     @review.ride_id = @ride.id

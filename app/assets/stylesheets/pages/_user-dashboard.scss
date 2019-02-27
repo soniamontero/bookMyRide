@@ -13,16 +13,16 @@
   align-items: center;
   .avatar-large {
     margin-bottom: 35px;
-  }
-  .user-actions {
-    display: flex;
-    flex-direction: column;
-  }
   .divider {
     border-top: 1px solid #e6e6e6;
     width: 200px;
     margin: 10px 0 20px 0;
 
+  }
+  }
+  .user-actions {
+    display: flex;
+    flex-direction: column;
   }
 }
 
