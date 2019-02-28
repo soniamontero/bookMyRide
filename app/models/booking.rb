@@ -10,6 +10,8 @@ class Booking < ApplicationRecord
   validate :date_end_is_after_date_begin
   validate :not_overlapping_other_bookings, on: :create
 
+  delegate :first_name, :avatar, to: :user, prefix: true
+
   scope :overlapping, ->(period_start, period_end) do
     where "((date_begin <= ?) and (date_end >= ?))", period_end, period_start
   end

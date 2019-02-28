@@ -1,14 +1,13 @@
 class ReviewsController < ApplicationController
   def new
     @review = Review.new
-    @ride = Ride.find(params[:id])
+    @booking = Booking.find(params[:booking_id])
   end
 
   def create
     @review = Review.new(review_params)
     @ride = Ride.find(params[:ride_id])
-    @review.ride_id = @ride.id
-    @review.user_id = current_user.id
+    @review.booking_id = Booking.where(ride_id: @ride, user_id: current_user.id)
     if @review.save
        respond_to do |format|
         format.js  # <-- will render `app/views/reviews/create.js.erb`
@@ -25,6 +24,6 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:title, :message, :rating)
+    params.require(:review).permit(:title, :message, :rating, :booking_id)
   end
 end

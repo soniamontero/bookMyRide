@@ -17,7 +17,7 @@ class PaymentsController < ApplicationController
       currency:     @booking.amount.currency
     )
 
-    @booking.update(payment: charge.to_json, state: 'paid')
+    @booking.update(payment: charge.to_json, state: 'Confirmed')
     redirect_to dashboard_path
 
   rescue Stripe::CardError => e
@@ -28,6 +28,6 @@ class PaymentsController < ApplicationController
   private
 
   def set_booking
-    @booking = current_user.bookings.where(state: 'pending').find(params[:booking_id])
+    @booking = current_user.bookings.where(state: 'Payment pending').find(params[:booking_id])
   end
 end

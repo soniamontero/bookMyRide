@@ -6,10 +6,10 @@
   </div>
   <div class="review-user">
     <p>
-      <%= review.user_first_name %>
+      <%= review.booking.user_first_name %>
     </p>
     <div class="review-user-avatar avatar">
-      <%= image_tag review.user_avatar %>
+      <%= cl_image_tag review.booking.user.avatar %>
     </div>
   </div>
 </div>

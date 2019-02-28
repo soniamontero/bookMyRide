@@ -6,7 +6,7 @@
   end
 
   def show
-    @booking = current_user.bookings.where(state: 'paid').find(params[:id])
+    @booking = current_user.bookings.where(state: 'Confirmed').find(params[:id])
   end
 
   def new
@@ -21,7 +21,7 @@
     @booking.ride = @ride
     amount = calculate_price(@booking.date_begin, @booking.date_end, @booking.ride.price)
     @booking.amount_cents = amount
-    @booking.state = 'pending'
+    @booking.state = 'Payment pending'
     if @booking.save
       redirect_to new_ride_booking_payment_path(@ride, @booking)
     else

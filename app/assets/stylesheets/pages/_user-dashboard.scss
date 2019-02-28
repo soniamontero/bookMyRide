@@ -1,7 +1,8 @@
 .user-dashboard {
   display: flex;
   flex-wrap: wrap;
-  padding: 6vw;
+  padding: 4vw;
+  justify-content: center;
 }
 
 .user-identity {
@@ -43,6 +44,13 @@
     .details {
       display: flex;
       flex-direction: column;
+      flex-grow: 1;
+      max-width: 400px;
     }
   }
+}
+
+.user-btn-message {
+  display: flex;
+  justify-content: space-between;
 }

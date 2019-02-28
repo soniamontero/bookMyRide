@@ -1,0 +1,43 @@
+<% if @user.bookings == [] %>
+  <p>You don't have any booking yet.</p>
+  <p>Browse all our bikes and book one!</p>
+<% else %>
+  <% @user.bookings.each do |booking| %>
+    <% if !booking.is_over? %>
+      <div class="user-booking">
+        <div class="avatar">
+          <%= cl_image_tag booking.ride.photo %>
+        </div>
+        <div class="details">
+          <p>
+            <i class="far fa-calendar"></i>
+              <%= booking.date_begin.to_date.to_s(:long_ordinal) %>
+            <i class="fas fa-arrow-right"></i>
+              <%= booking.date_end.to_date.to_s(:long_ordinal) %>
+          </p>
+          <p>
+            <strong>Status:</strong> <%= booking.state %>
+            <% if booking.state == 'Payment pending' %>
+              <%= link_to 'Pay now', new_ride_booking_payment_path(booking.ride, booking) %>
+            <% end %>
+          </p>
+          <p>
+            <strong>Ride:</strong> <%= link_to booking.ride.name, ride_path(booking.ride) %>
+          </p>
+          <div class="user-btn-message">
+            <p>
+              <strong>Owner:</strong>
+                <%= booking.ride.user.first_name %> <%=  booking.ride.user.last_name %>
+            </p>
+            <p>
+              <%= link_to "Send message", conversations_path(sender_id: current_user.id, recipient_id: booking.ride.user.id), method: 'post', class:'btn btn-sm btn-primary' %>
+            </p>
+          </div>
+          <% if booking.is_over? %>
+            <%= link_to "Leave Review", ride_path(booking.ride), "data-toggle" => "modal", 'data-target' => '#reviewModal', class: 'btn btn-primary btn-sm'  %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

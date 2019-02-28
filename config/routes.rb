@@ -4,11 +4,12 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   resources :rides do
-    resources :reviews, only: [:new, :create]
     resources :bookings do
      resources :payments, only: [:new, :create]
     end
   end
+
+  resources :reviews, only: [:new, :create]
 
   resources :users, only: [:edit, :show, :update]
   get "/profile", to: "users#show", as: :profile
