@@ -10,6 +10,16 @@
   font-size: 14px;
 }
 
+.navbar-left {
+  display: flex;
+  .search-bar {
+    padding-top: 5px;
+  }
+  .form-control {
+    width: 50vw;
+  }
+}
+
 .navbar-right {
   display: flex;
   justify-content: space-between;
