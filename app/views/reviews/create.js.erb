@@ -10,7 +10,6 @@ function addReview(reviewHTML) {
 }
 
 <% if @review.errors.any? %>
-  <%= raise %>
   refreshForm('<%= j render "reviews/new", ride: @ride, review: @review %>');
 <% else %>
   addReview('<%= j render "reviews/show", review: @review %>');

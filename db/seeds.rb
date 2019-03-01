@@ -19,6 +19,19 @@ rides_photos_url = [
   "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565024/nadine-shaabana-1143297-unsplash.jpg",
   "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565018/hari-nandakumar-1089470-unsplash.jpg",
   "https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565013/fredrick-suwandi-502014-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347382/yogesh-pedamkar-1268447-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347381/simson-petrol-225289-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347378/arthur-edelman-757807-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347377/oren-lonstein-1143763-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347370/matthew-bennett-418903-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347359/josh-edgoose-1144012-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347357/fancycrave-219657-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347356/maksym-potapenko-602588-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347346/ruben-mostad-1315271-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347327/bin-thi-u-252659-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347327/giovanni-corti-626267-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347325/francisco-requena-125276-unsplash.jpg",
+  "https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347321/bayu-rivaldy-225227-unsplash.jpg"
 ]
 
 rides_names = [
@@ -64,8 +77,9 @@ p "Sonia created and her ride created."
 
 user_counter = 1
 ride_counter = 1
+photo_index = 0
 
-10.times do
+12.times do
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -74,10 +88,11 @@ ride_counter = 1
     password: "password",
     owner: true
     )
-  user.remote_avatar_url = users_photos_url.sample
+  user.remote_avatar_url = users_photos_url[photo_index]
   user.save!
   p "#{user_counter} users created."
   user_counter += 1
+  photo_index += 1
   2.times do
     ride = Ride.new(
       name: rides_names.sample,

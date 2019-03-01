@@ -18,7 +18,7 @@
       <%= ride.name %></li>
     </h5>
     <div class="card-text">
-      <p>€<%= ride.price %> per day</p>
+      <p>€<%= humanized_money_with_symbol(ride.price) %> per day</p>
       <% if ride.global_rating == 0 %>
         <p class="global-rating-new">New</p>
       <% else %>

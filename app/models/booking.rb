@@ -3,10 +3,14 @@ class Booking < ApplicationRecord
   belongs_to :ride
   has_one :review
 
+  monetize :amount_cents
+
   validates :date_begin, :date_end, presence: true
 
   validate :date_end_is_after_date_begin
-  validate :not_overlapping_other_bookings
+  validate :not_overlapping_other_bookings, on: :create
+
+  delegate :first_name, :avatar, to: :user, prefix: true
 
   scope :overlapping, ->(period_start, period_end) do
     where "((date_begin <= ?) and (date_end >= ?))", period_end, period_start
@@ -16,10 +20,19 @@ class Booking < ApplicationRecord
     self.date_end < Date.today
   end
 
+  def number_of_days
+    days = (self.date_end.to_date - self.date_begin.to_date).to_i
+    if days == 0
+      return '1 day'
+    else
+      return "#{days} days"
+    end
+  end
+
   private
 
   def not_overlapping_other_bookings
-    if Booking.overlapping(date_begin, date_end).any?
+    if Booking.where(ride_id: ride.id).overlapping(date_begin, date_end).any?
       errors.add(:date_end, 'overlaps another booking')
     end
   end

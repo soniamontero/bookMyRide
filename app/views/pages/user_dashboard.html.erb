@@ -21,29 +21,29 @@
   </div>
 
   <div class="user-bookings">
-    <h4>Your Bookings</h4>
-    <% if @user.bookings == [] %>
-      <br>
-      <p>You don't have any booking yet.</p>
-      <p>Browse all our bikes and book one!</p>
-    <% else %>
-      <% @user.bookings.each do |booking| %>
-      <div class="user-booking">
-        <div class="avatar">
-          <%= cl_image_tag booking.ride.photo %>
-        </div>
-        <div class="details">
-          <p><strong>Start date:</strong> <%= booking.date_begin.to_date.to_s(:long_ordinal) %></p>
-          <p><strong>End date:</strong> <%= booking.date_end.to_date.to_s(:long_ordinal) %></p>
-          <p><strong>Ride:</strong> <%= link_to booking.ride.name, ride_path(booking.ride) %></p>
-          <p><strong>Contact the owner: <u><%= link_to "#{booking.ride.user.first_name}", conversations_path(sender_id: current_user.id, recipient_id: booking.ride.user.id), method: 'post' %></u></strong></p>
-          <% if booking.is_over? %>
-            <%= link_to 'Leave a review', ride_path(booking.ride), class: 'btn btn-primary btn-sm' %>
-          <% end %>
-        </div>
+    <h4 class="mb-4">Your Bookings</h4>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="upcoming-bookings-tab" data-toggle="tab" href="#upcoming-bookings" role="tab" aria-controls="upcoming-bookings" aria-selected="true">Upcoming Bookings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="bookings-to-review-tab" data-toggle="tab" href="#bookings-to-review" role="tab" aria-controls="profile" aria-selected="false">Bookings To Review</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="completed-bookings-tab" data-toggle="tab" href="#completed-bookings" role="tab" aria-controls="completed-bookings" aria-selected="false">Completed Bookings</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="upcoming-bookings" role="tabpanel" aria-labelledby="upcoming-bookings-tab">
+        <%= render './bookings/upcoming-bookings', user: @user %>
       </div>
-      <% end %>
-    <% end %>
+      <div class="tab-pane fade" id="bookings-to-review" role="tabpanel" aria-labelledby="bookings-to-review-tab">
+         <%= render './bookings/bookings-to-review', user: @user %>
+      </div>
+      <div class="tab-pane fade" id="completed-bookings" role="tabpanel" aria-labelledby="completed-bookings-tab">
+        <%= render './bookings/completed-bookings', user: @user %>
+      </div>
+    </div>
   </div>
-
 </div>
+

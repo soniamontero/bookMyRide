@@ -4,7 +4,9 @@ class Ride < ApplicationRecord
   has_many :reviews, through: :bookings
 
   validates :name, :category, :price, :location, presence: true
-  validates :price, :year, numericality: { only_integer: true }
+  validates :year, numericality: { only_integer: true }
+
+  monetize :price_cents
 
   geocoded_by :location
   after_validation :geocode, if: :will_save_change_to_location?
@@ -15,11 +17,11 @@ class Ride < ApplicationRecord
   pg_search_scope :search_by_name_and_location,
     against: [ :name, :location ],
     using: {
-      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+      tsearch: { prefix: true }
     }
 
   def unavailable_dates
-    bookings.pluck(:date_begin, :date_end).map do |range|
+    self.bookings.pluck(:date_begin, :date_end).map do |range|
       { from: range[0], to: range[1] }
     end
   end

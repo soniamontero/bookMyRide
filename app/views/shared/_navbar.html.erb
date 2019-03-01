@@ -1,14 +1,26 @@
 <nav class="navbar">
   <%= link_to image_tag('motorcycle.png'), root_path, class: "navbar-brand logo" %>
   <div class="navbar-right">
-    <%= link_to "Bikes", rides_path %>
     <% if current_user %>
-      <%= link_to "Dashboard", dashboard_path %>
-      <%= link_to "Messages", conversations_path %>
-      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path %>
-      <%= link_to "Log in", new_user_session_path %>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-bars" style="color: gray;"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <%= link_to "Dashboard", dashboard_path, class: "dropdown-item border-bottom" %>
+              <%= link_to "Messages", conversations_path, class: "dropdown-item border-bottom" %>
+              <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", method: :delete %>
+        </div>
+      </div>
+      <% else %>
+        <%= link_to "Sign up", new_user_registration_path %>
+        <%= link_to "Log in", new_user_session_path  %>
+      <% end %>
+    <% if current_user %>
+      <div class="avatar-navbar">
+        <%= cl_image_tag current_user.avatar %>
+      </div>
     <% end %>
   </div>
 </nav>
+

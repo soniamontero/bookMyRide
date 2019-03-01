@@ -1,0 +1,68 @@
+<div class="wrapper-column">
+  <div class="main-column payment-main-column">
+    <h1 class='pb-4 text-center'>Summary of your booking</h1>
+    <div class="details">
+      <div class="flex-title-avatar">
+        <div class="ride-title">
+          <div class="category">
+            <%= @booking.ride.category %>
+          </div>
+          <div class="name">
+            <%= @booking.ride.name %>
+          </div>
+          <div class="location">
+            <div>
+              <% if @booking.ride.global_rating != 0 %>
+                Previous users gave it an average rating of <%= @booking.ride.global_rating %>
+              <% else %>
+                No review yet.
+              <% end %>
+            </div>
+            <%= @booking.ride.location %>
+            </div>
+          </div>
+        <div class="avatar">
+          <%= cl_image_tag @booking.ride.user.avatar %>
+          <%= @booking.ride.user.first_name %>
+        </div>
+      </div>
+      <div class="info">
+        <p>
+          <i class="far fa-calendar"></i>
+          <%= @booking.date_begin.to_date.to_s(:long_ordinal) %>
+          <i class="fas fa-arrow-right"></i>
+          <%= @booking.date_end.to_date.to_s(:long_ordinal) %>
+        </p>
+        <div class="payment-booking-details">
+          <p>
+            <strong>Owner:</strong> <%= @booking.ride.user.first_name %> <%=  @booking.ride.user.last_name %>
+          </p>
+          <p>
+            <%= link_to "Send message", conversations_path(sender_id: current_user.id, recipient_id: @booking.ride.user.id), method: 'post', class:'btn btn-sm btn-primary' %>
+          </p>
+        </div>
+            <div class="divider"></div>
+        <div class="payment-booking-details">
+          <p style="margin-bottom: 0px;">
+            €<%= @booking.ride.price %> x <%= @booking.number_of_days %>
+          </p>
+          <p style="margin-bottom: 0px";>
+            <%= humanized_money_with_symbol(@booking.amount) %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="payment-form-submission">
+      <%= form_tag ride_booking_payments_path(@booking) do %>
+
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-name="Book your Ride"
+          data-email="<%= current_user.email %>"
+          data-description="<%= @booking.ride.name %>"
+          data-amount="<%= @booking.amount_cents %>"
+          data-currency="<%= @booking.amount.currency %>"></script>
+      <% end %>
+    </div>
+  </div>
+</div>

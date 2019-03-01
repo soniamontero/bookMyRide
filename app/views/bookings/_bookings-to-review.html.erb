@@ -1,0 +1,38 @@
+<% @user.bookings.each do |booking| %>
+  <% if booking.is_over? && booking.review.nil? %>
+    <div class="user-booking">
+      <div class="avatar">
+        <%= cl_image_tag booking.ride.photo %>
+      </div>
+      <div class="details">
+        <p>
+          <i class="far fa-calendar"></i>
+            <%= booking.date_begin.to_date.to_s(:long_ordinal) %>
+          <i class="fas fa-arrow-right"></i>
+            <%= booking.date_end.to_date.to_s(:long_ordinal) %>
+        </p>
+        <p>
+          <strong>Status:</strong> <%= booking.state %>
+          <% if booking.state == 'Payment pending' %>
+            <%= link_to 'Pay now', new_ride_booking_payment_path(booking.ride, booking) %>
+          <% end %>
+        </p>
+        <p>
+          <strong>Ride:</strong> <%= link_to booking.ride.name, ride_path(booking.ride) %>
+        </p>
+        <div class="user-btn-message">
+          <p>
+            <strong>Owner:</strong>
+              <%= booking.ride.user.first_name %> <%=  booking.ride.user.last_name %>
+          </p>
+        </div>
+        <% if booking.is_over? %>
+          <%= link_to "Leave Review", ride_path(booking.ride), "data-toggle" => "modal", 'data-target' => '#reviewModal', class: 'btn btn-primary btn-sm'  %>
+        <% end %>
+      </div>
+    </div>
+    <% else %>
+    <p class='pt-5 text-center'>You don't have any booking to review yet.</p>
+  <% end %>
+<% end %>
+
