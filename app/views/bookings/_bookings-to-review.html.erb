@@ -1,6 +1,5 @@
 <% if @user.bookings == [] %>
-  <p>You don't have any booking yet.</p>
-  <p>Browse all our bikes and book one!</p>
+  <p class='pt-4'>You don't have any booking to review yet.</p>
 <% else %>
   <% @user.bookings.each do |booking| %>
     <% if booking.is_over? && booking.review.nil? %>

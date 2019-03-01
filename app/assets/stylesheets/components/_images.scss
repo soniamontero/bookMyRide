@@ -1,3 +1,15 @@
+.avatar-navbar {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  img {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    border: 3px solid rgba(255, 255, 255, 1);
+  }
+}
+
 .avatar {
   display: flex;
   flex-direction: column;
