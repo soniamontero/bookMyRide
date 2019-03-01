@@ -11,7 +11,7 @@ class RidesController < ApplicationController
     #   @rides = Ride.where.not(latitude: nil, longitude: nil)
     # end
     if params[:query].present?
-      @rides = Ride.search_by_name_and_location("Canggu")
+      @rides = Ride.search_by_name_and_location(params[:query])
                    .where.not(latitude: nil, longitude: nil)
     else
       @rides = Ride.where.not(latitude: nil, longitude: nil)
