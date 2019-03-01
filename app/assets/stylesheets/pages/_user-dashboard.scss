@@ -36,7 +36,7 @@
     display: flex;
     flex-wrap: wrap;
     border-radius: 3px;
-    padding: 20px;
+    padding: 32px;
     border-bottom: 1px solid #e6e6e6;
     img {
       margin-right: 10px;
@@ -53,4 +53,12 @@
 .user-btn-message {
   display: flex;
   justify-content: space-between;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.user-details {
+  word-break: break-word;
+  max-width: 160px
 }
