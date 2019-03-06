@@ -1,32 +1,25 @@
 <div class="main-rides-container">
   <div class="rides-left-column">
-      <div class="rides-index-searchbar">
-        <%= form_tag rides_path, method: :get do %>
-          <%= text_field_tag :query,
-            params[:query],
-            class: "form-control",
-            placeholder: "Find a ride"
-          %>
-        <% end %>
-      </div>
 
     <div class="rides-index">
-      <div class="row">
-        <% @rides.each do |ride| %>
-          <div class="col-sm-6 col-md-6 col-lg-6 lg-padding">
-            <%= link_to ride_path(ride) do %>
-              <%= render 'ride-card', ride: ride %>
-            <% end %>
-          </div>
+      <% if @no_location_found == true %>
+        <p class="pl-4 pr-4 pt-3 text-center mx-auto">No results found. <br>Try to search for another location, or check out our available bikes below.</p>
+        <div class="divider"></div>
+      <% end %>
+      <% @rides.each do |ride| %>
+      <div class="card profile-card-2">
+        <%= link_to ride_path(ride) do %>
+          <%= render 'ride-card', ride: ride %>
         <% end %>
       </div>
+      <% end %>
     </div>
 
   </div>
     <div
       id="map"
       style="
-      height: calc(100vh - 65px);"
+      height: 100vh;"
       data-markers="<%= @markers.to_json %>"
       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
     ></div>

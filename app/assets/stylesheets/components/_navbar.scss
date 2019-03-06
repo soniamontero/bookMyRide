@@ -7,7 +7,19 @@
   height: 65px;
   border-bottom: #e5e5e5 1px solid;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 13px;
+  color: gray;
+}
+
+.navbar-left {
+  display: flex;
+  .search-bar {
+    padding-top: 5px;
+  }
+  .form-control {
+    width: 50vw;
+    font-size: 13px;
+  }
 }
 
 .navbar-right {
@@ -35,3 +47,16 @@
   margin-bottom: 0;
 }
 
+.filter-container form {
+  display: flex;
+  padding-top: 5px;
+  margin-left: 10px;
+  .custom-select {
+    color: #6c757d;
+  }
+
+  .btn {
+    height: 38px;
+    margin-left: 5px;
+  }
+}

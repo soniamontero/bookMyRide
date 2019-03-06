@@ -1,0 +1,23 @@
+.footer {
+  justify-content: space-between;
+  height: 65px;
+  font-weight: 400;
+  font-size: 14px;
+  background-color: white;
+  border-top: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: gray;
+  .footer-left {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 5vw;
+    font-size: 18px;
+    width: 20%;
+  }
+  .footer-right {
+    margin-right: 5vw;
+    width: 20%;
+  }
+}

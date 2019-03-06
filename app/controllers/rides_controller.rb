@@ -3,27 +3,17 @@ class RidesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    # if params[:query].present?
-    #    sql_query = "name ILIKE :query OR location ILIKE :query"
-    #   @rides = Ride.where(sql_query, query: "%#{params[:query]}%")
-    #                .where.not(latitude: nil, longitude: nil)
-    # else
-    #   @rides = Ride.where.not(latitude: nil, longitude: nil)
-    # end
-    if params[:query].present?
-      @rides = Ride.search_by_name_and_location("Canggu")
-                   .where.not(latitude: nil, longitude: nil)
-    else
-      @rides = Ride.where.not(latitude: nil, longitude: nil)
-    end
+    @categories = Ride.pluck(:category).uniq
+    set_rides
     calculate_global_rating_index
-    mark_rides_on_map
+    @markers = mark_rides_on_map
   end
 
   def show
     @ride = Ride.find(params[:id])
     @review = Review.new
     @booking = Booking.new
+    mark_ride_on_map_show
   end
 
   def new
@@ -40,8 +30,7 @@ class RidesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @ride.update(ride_params)
@@ -59,21 +48,47 @@ class RidesController < ApplicationController
 
   private
 
+  def set_rides
+    if params[:query].present?
+      @rides = Ride.search_by_name_and_location(params[:query])
+                   .where.not(latitude: nil, longitude: nil)
+      if @rides.empty?
+        @rides = Ride.where.not(latitude: nil, longitude: nil)
+        @no_location_found = true
+      end
+    elsif params[:category].present?
+      @rides = Ride.where(category: params[:category])
+      @rides = Ride.where.not(latitude: nil, longitude: nil) if params[:category] == "Select category"
+    else
+      @rides = Ride.where.not(latitude: nil, longitude: nil)
+    end
+  end
+
   def calculate_global_rating_index
     @rides.each do |ride|
       result = 0
       ratings_number = 0
-        ride.reviews.each do |review|
+      ride.reviews.each do |review|
         result += review.rating
         ratings_number += 1
       end
-      if ratings_number > 0
+      if ratings_number.positive?
         ride.global_rating = result / ratings_number
         ride.save!
       else
         ride.global_rating = 0
       end
     end
+  end
+
+  def mark_ride_on_map_show
+    @marker = [{
+      lng: @ride.longitude,
+      lat: @ride.latitude,
+      infoWindow: render_to_string(
+        partial: 'infowindow', locals: { ride: @ride }
+      )
+    }]
   end
 
   def mark_rides_on_map
@@ -86,10 +101,19 @@ class RidesController < ApplicationController
         )
       }
     end
+    @markers
   end
 
   def ride_params
-    params.require(:ride).permit(:name, :year, :price, :category, :location, :global_rating, :photo)
+    params.require(:ride).permit(
+      :name,
+      :year,
+      :price,
+      :category,
+      :location,
+      :global_rating,
+      :photo
+    )
   end
 
   def set_ride
