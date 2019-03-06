@@ -3,31 +3,16 @@ class RidesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    # if params[:query].present?
-    #    sql_query = "name ILIKE :query OR location ILIKE :query"
-    #   @rides = Ride.where(sql_query, query: "%#{params[:query]}%")
-    #                .where.not(latitude: nil, longitude: nil)
-    # else
-    #   @rides = Ride.where.not(latitude: nil, longitude: nil)
-    # end
-    if params[:query].present?
-      @rides = Ride.search_by_name_and_location(params[:query])
-                   .where.not(latitude: nil, longitude: nil)
-      if @rides.empty?
-        @rides = Ride.where.not(latitude: nil, longitude: nil)
-        @no_location_found = true
-      end
-    else
-      @rides = Ride.where.not(latitude: nil, longitude: nil)
-    end
+    set_rides
     calculate_global_rating_index
-    mark_rides_on_map
+    @markers = mark_rides_on_map
   end
 
   def show
     @ride = Ride.find(params[:id])
     @review = Review.new
     @booking = Booking.new
+    mark_ride_on_map_show
   end
 
   def new
@@ -63,6 +48,26 @@ class RidesController < ApplicationController
 
   private
 
+  def set_rides
+    # if params[:query].present?
+    #    sql_query = "name ILIKE :query OR location ILIKE :query"
+    #   @rides = Ride.where(sql_query, query: "%#{params[:query]}%")
+    #                .where.not(latitude: nil, longitude: nil)
+    # else
+    #   @rides = Ride.where.not(latitude: nil, longitude: nil)
+    # end
+    if params[:query].present?
+      @rides = Ride.search_by_name_and_location(params[:query])
+                   .where.not(latitude: nil, longitude: nil)
+      if @rides.empty?
+        @rides = Ride.where.not(latitude: nil, longitude: nil)
+        @no_location_found = true
+      end
+    else
+      @rides = Ride.where.not(latitude: nil, longitude: nil)
+    end
+  end
+
   def calculate_global_rating_index
     @rides.each do |ride|
       result = 0
@@ -80,6 +85,16 @@ class RidesController < ApplicationController
     end
   end
 
+  def mark_ride_on_map_show
+    @marker = [{
+      lng: @ride.longitude,
+      lat: @ride.latitude,
+      infoWindow: render_to_string(
+        partial: 'infowindow', locals: { ride: @ride }
+      )
+    }]
+  end
+
   def mark_rides_on_map
     @markers = @rides.map do |ride|
       {
@@ -90,6 +105,7 @@ class RidesController < ApplicationController
         )
       }
     end
+    return @markers
   end
 
   def ride_params
