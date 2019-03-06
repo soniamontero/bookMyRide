@@ -15,7 +15,7 @@
       <p class="pl-2 mt-3" style="color: gray;">OR</p>
       <div class="filter-container">
         <%= form_tag({:controller => "rides", :action => "index"}, method: :get) do %>
-          <%= select_tag "category", options_for_select(["Select category"] + @categories), class: "custom-select" %>
+          <%= select_tag "category", options_for_select(["Select category"] + Ride.pluck(:category).uniq), class: "custom-select" %>
           <%= submit_tag "Filter", class: 'btn btn-primary' %>
         <% end %>
       </div>

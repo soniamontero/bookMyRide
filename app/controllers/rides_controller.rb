@@ -30,8 +30,7 @@ class RidesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @ride.update(ride_params)
@@ -50,13 +49,6 @@ class RidesController < ApplicationController
   private
 
   def set_rides
-    # if params[:query].present?
-    #    sql_query = "name ILIKE :query OR location ILIKE :query"
-    #   @rides = Ride.where(sql_query, query: "%#{params[:query]}%")
-    #                .where.not(latitude: nil, longitude: nil)
-    # else
-    #   @rides = Ride.where.not(latitude: nil, longitude: nil)
-    # end
     if params[:query].present?
       @rides = Ride.search_by_name_and_location(params[:query])
                    .where.not(latitude: nil, longitude: nil)
@@ -76,11 +68,11 @@ class RidesController < ApplicationController
     @rides.each do |ride|
       result = 0
       ratings_number = 0
-        ride.reviews.each do |review|
+      ride.reviews.each do |review|
         result += review.rating
         ratings_number += 1
       end
-      if ratings_number > 0
+      if ratings_number.positive?
         ride.global_rating = result / ratings_number
         ride.save!
       else
@@ -109,11 +101,19 @@ class RidesController < ApplicationController
         )
       }
     end
-    return @markers
+    @markers
   end
 
   def ride_params
-    params.require(:ride).permit(:name, :year, :price, :category, :location, :global_rating, :photo)
+    params.require(:ride).permit(
+      :name,
+      :year,
+      :price,
+      :category,
+      :location,
+      :global_rating,
+      :photo
+    )
   end
 
   def set_ride
