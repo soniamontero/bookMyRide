@@ -1,5 +1,9 @@
 .card {
   border: none;
+  min-width: 250px;
+  max-width: 500px;
+  margin: 10px;
+  flex-grow: 1;
 }
 
 .md-padding {

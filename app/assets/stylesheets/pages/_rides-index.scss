@@ -1,24 +1,23 @@
 .main-rides-container {
   display: flex;
+  flex-wrap: wrap;
 
   .rides-left-column {
       width: 100%;
+      flex: 1 1;
   }
   .rides-index {
     display: flex;
     flex-wrap: wrap;
     padding: 3%;
     width: 100%;
-    justify-content: center;
-    .row {
-      width: 100%;
-    }
+    justify-content: space-around;
   }
   #map {
   height: 100vh;
   position: sticky !important;
   /*flex-basis: 450px;*/
-  flex: 0 1 450px;
+  flex: 0 1 300px;
   top: 0 !important;
   }
 }
