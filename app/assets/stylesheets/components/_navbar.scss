@@ -45,3 +45,13 @@
   margin-bottom: 0;
 }
 
+.filter-container form {
+  display: flex;
+  padding-top: 5px;
+  margin-left: 10px;
+
+  .btn {
+    height: 38px;
+    margin-left: 5px;
+  }
+}

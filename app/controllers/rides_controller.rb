@@ -3,6 +3,7 @@ class RidesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
+    @categories = Ride.pluck(:category).uniq
     set_rides
     calculate_global_rating_index
     @markers = mark_rides_on_map
@@ -63,6 +64,9 @@ class RidesController < ApplicationController
         @rides = Ride.where.not(latitude: nil, longitude: nil)
         @no_location_found = true
       end
+    elsif params[:category].present?
+      @rides = Ride.where(category: params[:category])
+      @rides = Ride.where.not(latitude: nil, longitude: nil) if params[:category] == "Select category"
     else
       @rides = Ride.where.not(latitude: nil, longitude: nil)
     end
