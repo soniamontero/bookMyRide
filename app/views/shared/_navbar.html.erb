@@ -16,27 +16,21 @@
   </div>
   <div class="navbar-right">
     <% if current_user %>
-      <div class="dropdown">
-        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-bars" style="color: gray;"></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-          <%= link_to "Dashboard", dashboard_path, class: "dropdown-item border-bottom" %>
-          <%= link_to "Messages", conversations_path, class: "dropdown-item border-bottom" %>
-          <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", method: :delete %>
+      <div class="" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="avatar-navbar">
+          <%= cl_image_tag current_user.avatar %>
+          <i class="fas fa-caret-down"></i>
         </div>
+      </div>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+        <%= link_to "Dashboard", dashboard_path, class: "dropdown-item border-bottom" %>
+        <%= link_to "Messages", conversations_path, class: "dropdown-item border-bottom" %>
+        <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", method: :delete %>
       </div>
       <% else %>
         <%= link_to "Sign up", new_user_registration_path %>
         <%= link_to "Log in", new_user_session_path  %>
       <% end %>
-    <% if current_user %>
-      <div class="avatar-navbar">
-        <%= link_to dashboard_path do %>
-          <%= cl_image_tag current_user.avatar %>
-        <% end %>
-      </div>
-    <% end %>
   </div>
 </nav>
 

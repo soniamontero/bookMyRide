@@ -23,10 +23,15 @@
   align-items: center;
 }
 
+.home-form {
+  max-width: 500px;
+  width: 80vw;
+}
+
 .home-form form {
   display: flex;
+  flex-grow: 1;
   .form-control {
-    width: 328px;
   }
 }
 
