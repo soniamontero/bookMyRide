@@ -24,6 +24,7 @@ class RidesController < ApplicationController
     @ride = Ride.new(ride_params)
     @ride.user_id = current_user.id if current_user
     if @ride.save
+
       redirect_to rides_path
     else
       render 'new'
@@ -105,15 +106,8 @@ class RidesController < ApplicationController
   end
 
   def ride_params
-    params.require(:ride).permit(
-      :name,
-      :year,
-      :price,
-      :category,
-      :location,
-      :global_rating,
-      :photo
-    )
+    params.require(:ride).permit(:name, :year, :price, :category, :location,
+                                 :global_rating, :photo)
   end
 
   def set_ride

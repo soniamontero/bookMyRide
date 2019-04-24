@@ -5,13 +5,23 @@
     </div>
     <div class="user-details">
       <p><strong>Email:</strong> <%= @user.email %></p>
-      <p><strong>First name:</strong> <%= @user.first_name %></p>
-      <p><strong>Last name:</strong> <%= @user.last_name %></p>
-      <p><strong>Location:</strong> <%= @user.location %></p>
+      <% if @user.first_name.present? %>
+        <p><strong>First name:</strong> <%= @user.first_name %></p>
+      <% end %>
+      <% if @user.last_name.present? %>
+        <p><strong>Last name:</strong> <%= @user.last_name %></p>
+      <% end %>
+      <% if @user.location.present? %>
+        <p><strong>Location:</strong> <%= @user.location %></p>
+      <% end %>
     </div>
     <span class="divider"></span>
     <div class="user-actions">
-      <%= link_to "Edit your profile", edit_user_path(@user) %>
+      <% if @user.first_name.nil? || @user.last_name.nil? || @user.location.nil?%>
+      <%= link_to "Complete your profile", edit_user_path(@user) %>
+      <% else %>
+        <%= link_to "Edit your profile", edit_user_path(@user) %>
+      <% end %>
       <% if current_user.rides == [] %>
         <%= link_to "Add a new bike", new_ride_path %>
       <% else %>
@@ -24,13 +34,13 @@
     <h4 class="mb-4">Your Bookings</h4>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="upcoming-bookings-tab" data-toggle="tab" href="#upcoming-bookings" role="tab" aria-controls="upcoming-bookings" aria-selected="true">Upcoming Bookings</a>
+        <a class="nav-link active" id="upcoming-bookings-tab" data-toggle="tab" href="#upcoming-bookings" role="tab" aria-controls="upcoming-bookings" aria-selected="true">Upcoming</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="bookings-to-review-tab" data-toggle="tab" href="#bookings-to-review" role="tab" aria-controls="profile" aria-selected="false">Bookings To Review</a>
+        <a class="nav-link" id="bookings-to-review-tab" data-toggle="tab" href="#bookings-to-review" role="tab" aria-controls="profile" aria-selected="false">To Review</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="completed-bookings-tab" data-toggle="tab" href="#completed-bookings" role="tab" aria-controls="completed-bookings" aria-selected="false">Completed Bookings</a>
+        <a class="nav-link" id="completed-bookings-tab" data-toggle="tab" href="#completed-bookings" role="tab" aria-controls="completed-bookings" aria-selected="false">Completed</a>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">

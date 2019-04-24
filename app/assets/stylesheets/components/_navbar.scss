@@ -47,7 +47,7 @@
   margin-bottom: 0;
 }
 
-.filter-container form {
+.filter-button form {
   display: flex;
   padding-top: 5px;
   margin-left: 10px;
@@ -60,3 +60,11 @@
     margin-left: 5px;
   }
 }
+
+
+@media (max-width: 775px) {
+  .filter-container {
+    display: none;
+  }
+}
+

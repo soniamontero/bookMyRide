@@ -48,5 +48,3 @@ class Ride < ApplicationRecord
     self.global_rating * 2 * 10
   end
 end
-
-
