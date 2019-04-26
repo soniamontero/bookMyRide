@@ -1,6 +1,6 @@
 <div class="card-img-block">
-    <% if ride.photo %>
-      <%= cl_image_tag ride.photo %>
+    <% if ride.photo.present? %>
+      <%= cl_image_tag ride.photo.url(:rides_card) %>
     <% end %>
   </div>
 

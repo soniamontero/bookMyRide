@@ -12,13 +12,15 @@
           %>
         <% end %>
       </div>
-      <p class="pl-2 mt-3" style="color: gray;">OR</p>
-      <div class="filter-container">
-        <%= form_tag({:controller => "rides", :action => "index"}, method: :get) do %>
-          <%= select_tag "category", options_for_select(["Select category"] + Ride.pluck(:category).uniq), class: "custom-select" %>
-          <%= submit_tag "Filter", class: 'btn btn-primary' %>
-        <% end %>
-      </div>
+      <% if current_user %>
+        <div class="filter-container">
+          <div class="filter-button">
+            <%= form_tag({:controller => "rides", :action => "index"}, method: :get) do %>
+              <%= select_tag "category", options_for_select(["Filter"] + Ride.pluck(:category).uniq), onchange: "this.form.submit();", class: "custom-select" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
   <div class="navbar-right">

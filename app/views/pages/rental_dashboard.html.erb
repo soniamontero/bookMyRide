@@ -1,4 +1,5 @@
 <h4>My Rides</h4>
+<%= link_to 'Add Ride', new_ride_path %>
 <% @user.rides.each do |ride| %>
   <p>Name: <%= ride.name %></p>
   <p>Category<%= ride.category %></p>

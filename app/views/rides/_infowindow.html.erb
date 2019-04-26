@@ -1,6 +1,6 @@
 <div class="card profile-card-2 infowindow-card">
   <div class="card-img-block infowindow-img">
-    <% if ride.photo %>
+    <% if ride.photo.present? %>
       <%= cl_image_tag ride.photo %>
     <% end %>
   </div>
