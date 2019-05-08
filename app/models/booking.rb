@@ -29,6 +29,19 @@ class Booking < ApplicationRecord
     end
   end
 
+  def self.renting_to_users(current_user)
+    rides = current_user.rides
+    bookings = []
+    rides.each do |ride|
+      bookings << ride.bookings
+    end
+    bookings.flatten
+  end
+
+  def self.renting_from_users(current_user)
+    current_user.bookings
+  end
+
   private
 
   def not_overlapping_other_bookings

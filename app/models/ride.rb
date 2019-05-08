@@ -34,6 +34,10 @@ class Ride < ApplicationRecord
     end
   end
 
+  def users_who_booked
+    User.where(id: self.bookings.pluck(:user_id))
+  end
+
   def average_ratings
     ratings = 0
     sum = 0
