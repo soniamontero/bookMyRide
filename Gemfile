@@ -37,9 +37,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'jquery-rails'
-gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap', '~> 4.3.1'
 gem 'simple_form'
-gem 'devise'
+gem 'devise', '~> 4.6.0'
 gem 'webpacker', '~> 3.5'
 gem "geocoder"
 gem 'dotenv-rails', groups: [:development, :test]
