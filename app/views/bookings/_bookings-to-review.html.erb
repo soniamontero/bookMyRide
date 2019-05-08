@@ -1,7 +1,8 @@
+<% byebug %>
 <% if @user.bookings == [] %>
   <div class="text-center">
-      <p class='pt-5 text-center'>You don't have any booking to review yet.</p>
-      <%= link_to "Browse all our bikes and book one!", rides_path, class: 'btn btn-primary text-center' %>
+    <p class='pt-5 text-center'>You don't have any booking to review yet.</p>
+    <%= link_to "Browse all our bikes and book one!", rides_path, class: 'btn btn-primary text-center' %>
   </div>
 <% else %>
   <% @user.bookings.each do |booking| %>
@@ -29,16 +30,14 @@
           <div class="user-btn-message">
             <p>
               <strong>Owner:</strong>
-                <%= booking.ride.user.first_name %> <%=  booking.ride.user.last_name %>
+              <%= booking.ride.user.first_name %> <%=  booking.ride.user.last_name %>
             </p>
           </div>
           <% if booking.is_over? %>
-            <%= link_to "Leave Review", ride_path(booking.ride), "data-toggle" => "modal", 'data-target' => '#reviewModal', class: 'btn btn-primary btn-sm'  %>
+            <%= link_to "Leave Review", ride_path(booking.ride), "data-toggle" => "modal", 'data-target' => '#reviewModal', class: 'btn btn-primary btn-sm' %>
           <% end %>
         </div>
       </div>
-      <% else %>
-      <p class='pt-5 text-center'>You don't have any booking to review yet.</p>
     <% end %>
   <% end %>
 <% end %>

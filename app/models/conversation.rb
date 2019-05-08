@@ -8,4 +8,13 @@ class Conversation < ApplicationRecord
   scope :between, -> (sender_id, recipient_id) do
     where("(conversations.sender_id = ? AND conversations.recipient_id =?) OR (conversations.sender_id = ? AND conversations.recipient_id =?)", sender_id, recipient_id, recipient_id, sender_id)
   end
+
+  # def conversation_exists?(current_user, user)
+  #   if Conversation.between(current_user.id, user).present?
+  #     conversation = Conversation.between(current_user.id, user)
+  #     conversation.first.messages.present?
+  #   else
+  #     false
+  #   end
+  # end
 end

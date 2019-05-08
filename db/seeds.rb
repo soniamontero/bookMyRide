@@ -52,6 +52,15 @@ rides_categories = [
   "Motorbike"
 ]
 
+users_locations = [
+  "Canggu",
+  "Kuta",
+  "Jakarta",
+  "Denpasar",
+  "Singapour",
+  "Shanghai"
+]
+
 sonia = User.new(
     first_name: "Sonia",
     last_name: "Montero",
@@ -83,7 +92,7 @@ photo_index = 0
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
-    location: Faker::Address.city,
+    location: users_locations.sample,
     email: Faker::Internet.free_email,
     password: "password",
     owner: true

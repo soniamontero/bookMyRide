@@ -16,7 +16,7 @@ h2, h3 {
   text-transform: uppercase;
   font-weight: lighter;
   font-weight: 700;
-  color: #3a3a3a;
+  color: #5a5a5a;
 }
 
 h2 {
@@ -27,9 +27,18 @@ h3 {
   font-size: 26px;
 }
 
+h6 {
+  color: #5a5a5a;
+}
+
 p {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
+  color: #5a5a5a
+}
+
+.no-margin-bottom {
+  margin-bottom: 0px;
 }
 
 

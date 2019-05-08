@@ -1,0 +1,42 @@
+<div class="conversation-card">
+  <div class="contact-avatar">
+    <div class="avatar">
+      <%= cl_image_tag booking.ride.user.avatar %>
+    </div>
+  </div>
+  <div class="core-message">
+    <h6 class="no-margin-bottom">
+      <%= booking.ride.user.first_name %>
+    </h6>
+    <p class="no-margin-bottom grey-message">
+      <% if Conversation.between(current_user.id, booking.ride.user.id).present? && Conversation.between(current_user.id, booking.ride.user.id).first.messages.present? %>
+          <%= truncate(Conversation.between(current_user.id, booking.ride.user.id).first.messages.last.body, :length => 40) %>
+        <% else %>
+          Send the first message!
+      <% end %>
+    </p>
+
+    <% if booking.state == "Payment pending" %>
+      <p class="no-margin-bottom pending-state">
+        <strong><%= booking.state %></strong>
+      </p>
+    <% elsif booking.state == "Confirmed" %>
+      <p class="no-margin-bottom confirmed-state">
+        <strong><%= booking.state %></strong>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="booking-details text-center">
+    <p style= "font-size: 12px; margin-bottom: 8px">
+      <% if Conversation.between(current_user.id, booking.ride.user.id).present? && Conversation.between(current_user.id, booking.ride.user.id).first.messages.present? %>
+        <%= Conversation.between(current_user.id, booking.ride.user.id).first.messages.last.created_at.to_date %>
+      <% else %>
+          <%= booking.created_at.to_date %>
+      <% end %>
+    </p>
+    <p style= "font-size: 12px;" class="no-margin-bottom">
+      <%= booking.amount_cents / 100 %>€
+    </p>
+  </div>
+</div>
