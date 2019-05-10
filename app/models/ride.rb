@@ -13,6 +13,15 @@ class Ride < ApplicationRecord
 
   mount_uploader :photo, PhotoUploader
 
+  before_create :set_default_photo
+
+  def set_default_photo
+    if self.photo.blank?
+      url = "https://nonukes.nl/wp-content/themes/gonzo/images/no-image-featured-image.png"
+      self.remote_photo_url = url
+    end
+  end
+
   include PgSearch
   pg_search_scope :search_by_name_and_location,
     against: [ :name, :location ],

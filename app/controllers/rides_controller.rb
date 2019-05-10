@@ -24,8 +24,7 @@ class RidesController < ApplicationController
     @ride = Ride.new(ride_params)
     @ride.user_id = current_user.id if current_user
     if @ride.save
-
-      redirect_to rides_path
+      redirect_to ride_path(@ride)
     else
       render 'new'
     end
@@ -44,7 +43,7 @@ class RidesController < ApplicationController
   def destroy
     @ride = Ride.find(params[:id])
     @ride.destroy
-    redirect_to rides_path
+    redirect_back(fallback_location: rides_path)
   end
 
   private

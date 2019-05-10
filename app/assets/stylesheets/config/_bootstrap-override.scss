@@ -1,8 +1,8 @@
 .btn-primary {
-  background-color: #fd7a78;
-  border-color: #fd7a78;
+  background-color: $pink;
+  border-color: $pink;
   &:hover {
-    background-color: #ff5957;
-    border-color: #ff5957;
+    background-color: $dark-pink;
+    border-color: $dark-pink;
   }
 }

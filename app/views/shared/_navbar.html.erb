@@ -1,6 +1,6 @@
 <nav class="navbar">
   <div class="navbar-left">
-    <%= link_to image_tag('motorcycle.png'), root_path, class: "navbar-brand logo" %>
+    <%= link_to image_tag('motorcycle.png'), rides_path, class: "navbar-brand logo" %>
     <% if "#{controller.controller_name.to_s}.#{controller.action_name.to_s}" != "pages.home"
    %>
      <div class="search-bar">
