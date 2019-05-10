@@ -42,8 +42,14 @@ class RidesController < ApplicationController
 
   def destroy
     @ride = Ride.find(params[:id])
-    @ride.destroy
-    redirect_back(fallback_location: rides_path)
+    if @ride.has_upcoming_bookings? == true
+      flash[:alert] = "You can't delete that bike. You have upcoming bookings."
+      redirect_back(fallback_location: rides_path)
+    else
+      byebug
+      @ride.destroy
+      redirect_back(fallback_location: rides_path)
+    end
   end
 
   private

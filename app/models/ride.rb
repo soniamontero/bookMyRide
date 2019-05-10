@@ -24,12 +24,22 @@ class Ride < ApplicationRecord
 
   include PgSearch
   pg_search_scope :search_by_name_and_location,
-    against: [ :name, :location ],
+    against: [:name, :location],
     using: {
       tsearch: {
         prefix: true
       }
     }
+
+  def has_upcoming_bookings?
+    if bookings == []
+      false
+    else
+      bookings.each do |booking|
+        return true if !booking.is_over?
+      end
+    end
+  end
 
   def unavailable_dates
     self.bookings.pluck(:date_begin, :date_end).map do |range|

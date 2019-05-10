@@ -17,7 +17,13 @@ class Booking < ApplicationRecord
   end
 
   def is_over?
-    self.date_end < Date.today
+    byebug
+    if self.date_end < Date.today
+      self.is_over = true
+      true
+    else
+      false
+    end
   end
 
   def number_of_days

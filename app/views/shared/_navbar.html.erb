@@ -32,7 +32,9 @@
         </div>
       </div>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-        <%= link_to "Dashboard", dashboard_path, class: "dropdown-item border-bottom" %>
+        <%= link_to "Bookings", dashboard_path, class: "dropdown-item border-bottom" %>
+        <%= link_to "Listings", rental_dashboard_path, class: "dropdown-item border-bottom" %>
+        <%= link_to "Profile", dashboard_path, class: "dropdown-item border-bottom" %>
         <%= link_to "Messages", conversations_path, class: "dropdown-item border-bottom" %>
         <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", method: :delete %>
       </div>
