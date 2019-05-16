@@ -17,6 +17,7 @@ class RidesController < ApplicationController
   end
 
   def new
+    @categories = ['Scooter', 'Custom', 'Motorbike', 'Bicyle', 'Other']
     @ride = Ride.new
   end
 

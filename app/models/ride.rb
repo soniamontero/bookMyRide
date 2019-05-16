@@ -3,8 +3,12 @@ class Ride < ApplicationRecord
   has_many :bookings, dependent: :destroy
   has_many :reviews, through: :bookings
 
-  validates :name, :category, :price, :location, presence: true
-  validates :year, numericality: { only_integer: true }
+  validates :name, :category, :price, :location,
+            presence: true, length: { minimum: 10 }
+  validates :year,
+            numericality: { only_integer: true },
+            inclusion: (1901..Time.now.year)
+  validates :price, numericality: { greater_than: 0 }
 
   monetize :price_cents
 

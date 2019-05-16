@@ -17,12 +17,27 @@ class Booking < ApplicationRecord
   end
 
   def is_over?
-    byebug
     if self.date_end < Date.today
       self.is_over = true
       true
     else
       false
+    end
+  end
+
+  def current_status
+    if date_end < Date.today
+      state = 'Finished'
+      class_name = 'finished'
+      [state, class_name]
+    elsif date_begin <= Date.today && date_end >= Date.today
+      state = 'In Progress'
+      class_name = 'in-progress'
+      [state, class_name]
+    elsif date_begin > Date.today
+      state = 'Upcoming'
+      class_name = 'upcoming'
+      [state, class_name]
     end
   end
 

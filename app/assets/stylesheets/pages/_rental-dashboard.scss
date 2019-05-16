@@ -10,3 +10,16 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.state-finished {
+  color: $pink;
+}
+
+.state-in-progress {
+  color: $green;
+}
+
+.state-upcoming {
+  color: $yellow;
+}
+

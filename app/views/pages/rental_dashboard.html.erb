@@ -6,44 +6,46 @@
 
   <div class="rental-rides-index">
     <% @user.rides.each do |ride| %>
-      <div class="card profile-card-2 rental">
-        <div class="card-img-block">
-          <% if ride.photo.present? %>
-            <%= cl_image_tag ride.photo.url(:rides_card) %>
-          <% end %>
-        </div>
-
-        <div class="card-body rental-body">
-          <% if  ride.user.avatar %>
-            <%= cl_image_tag ride.user.avatar, class: "profile" %>
-          <% else %>
-            <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="profile-image" class="profile"/>
-          <% end %>
-          <div class="card-text">
-            <p class="category"><%= ride.category %> · <%= ride.location %></p>
-          </div>
-          <h5 class="card-title">
-            <%= ride.name %>
-          </h5>
-          <div class="card-text">
-            <p>€<%= ride.price %> per day</p>
-            <% if ride.global_rating == 0 %>
-              <p class="global-rating-new">New</p>
-            <% else %>
-              <p class="global-rating"><%= ride.global_rating %></p>
+      <%= link_to ride_path(ride) do %>
+        <div class="card profile-card-2 rental">
+          <div class="card-img-block">
+            <% if ride.photo.present? %>
+              <%= cl_image_tag ride.photo.url(:rides_card) %>
             <% end %>
           </div>
-          <div class="card-buttons">
-            <%= link_to "Edit this bike", edit_ride_path(ride), class:'btn-bike edit-btn' %>
-            <%= link_to "Delete this bike", ride_path(ride), class: 'btn-bike delete-btn', method: :delete, data: { confirm: 'Are you sure?' }  %>
+
+          <div class="card-body rental-body">
+            <% if ride.user.avatar %>
+              <%= cl_image_tag ride.user.avatar, class: "profile" %>
+            <% else %>
+              <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="profile-image" class="profile"/>
+            <% end %>
+            <div class="card-text">
+              <p class="category"><%= ride.category %> · <%= ride.location %></p>
+            </div>
+            <h5 class="card-title">
+              <%= ride.name %>
+            </h5>
+            <div class="card-text">
+              <p>€<%= ride.price %> per day</p>
+              <% if ride.global_rating == 0 %>
+                <p class="global-rating-new">New</p>
+              <% else %>
+                <p class="global-rating"><%= ride.global_rating %></p>
+              <% end %>
+            </div>
+            <div class="card-buttons">
+              <%= link_to "Edit this bike", edit_ride_path(ride), class:'btn-bike edit-btn' %>
+              <%= link_to "Delete this bike", ride_path(ride), class: 'btn-bike delete-btn', method: :delete, data: { confirm: 'Are you sure?' }  %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 
 
-    <div class="user-bookings mt-5">
+    <div class="user-bookings mt-5 pt-3">
       <h4 class="mb-4">My Bike's Bookings</h4>
       <% @user.rides.each do |ride| %>
         <% if ride.bookings %>
@@ -60,23 +62,21 @@
                     <%= booking.date_end.to_date.to_s(:long_ordinal) %>
                 </p>
                 <p>
-                  <strong>Status:</strong> <%= booking.state %>
-                  <% if booking.state == 'Payment pending' %>
-                    <%= link_to 'Pay now', new_ride_booking_payment_path(booking.ride, booking) %>
-                  <% end %>
+                  <strong>Payment status:</strong> <%= booking.state %>
                 </p>
                 <p>
                   <strong>Ride:</strong> <%= link_to booking.ride.name, ride_path(booking.ride) %>
                 </p>
-                <div class="user-btn-message">
-                  <p>
-                    <strong>Client:</strong>
-                    <%= booking.user.first_name %> <%=  booking.user.last_name %>
-                  </p>
-                </div>
-                <% if booking.is_over? %>
-                  <%= link_to "Leave Review", ride_path(booking.ride), "data-toggle" => "modal", 'data-target' => '#reviewModal', class: 'btn btn-primary btn-review btn-sm' %>
-                <% end %>
+                <p>
+                  <strong>Client:</strong>
+                  <%= booking.user.first_name %> <%=  booking.user.last_name %>
+                </p>
+                <p>
+                  <strong>Booking state:</strong>
+                  <span class="state-<%= booking.current_status[1] %>">
+                    <strong><%= booking.current_status[0].upcase %></strong>
+                  </span>
+                </p>
               </div>
             </div>
           <% end %>

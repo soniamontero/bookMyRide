@@ -7,9 +7,11 @@
   <% @user.bookings.each do |booking| %>
     <% if booking.is_over? && booking.review.nil? %>
       <div class="user-booking">
-        <div class="avatar">
-          <%= cl_image_tag booking.ride.photo %>
-        </div>
+        <%= link_to ride_path(booking.ride) do %>
+          <div class="avatar">
+            <%= cl_image_tag booking.ride.photo %>
+          </div>
+        <% end %>
         <div class="details">
           <p>
             <i class="far fa-calendar"></i>
@@ -33,7 +35,7 @@
             </p>
           </div>
           <% if booking.is_over? %>
-            <%= link_to "Leave Review", ride_path(booking.ride), "data-toggle" => "modal", 'data-target' => '#reviewModal', class: 'btn btn-primary btn-review btn-sm' %>
+            <%= link_to "Leave a review", ride_path(booking.ride, anchor: 'review-form'), class: 'btn btn-primary btn-review btn-sm' %>
           <% end %>
         </div>
       </div>
