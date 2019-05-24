@@ -24,21 +24,28 @@
     </div>
     <div class="info">
       <p style="margin-bottom: 0px;">This bike costs <strong>€<%= @ride.price %> per day</strong>.</p>
-      <p>Previous users gave it an average rating of <%= @ride.global_rating %>.</p>
+      <% if @ride.global_rating == 0 %>
+        <p>No reviews (yet).</p>
+      <% else %>
+        <p>Previous users gave it an average rating of <%= @ride.global_rating %>.</p>
+      <% end %>
     </div>
-  </div>
-
-  <div class="right-column">
+    <div class="info">
+      <div class="description">
+        <h6>Description: </h6>
+        <p><%= @ride.description %></p>
+      </div>
+    </div>
   </div>
   <div class="bottom-column">
     <div class="review-ratings">
-        <% if @ride.reviews == [] %>
-          <p >This bike hasn't been reviewed yet.</p>
-        <% else %>
-          <h3 style="margin-top: -6px;">
-            There are <%= @ride.reviews.count %> reviews
-          </h3>
-        <% end %>
+      <% if @ride.reviews == [] %>
+        <p >This bike hasn't been reviewed yet.</p>
+      <% else %>
+        <h3 style="margin-top: -6px;">
+          There are <%= @ride.reviews.count %> reviews
+        </h3>
+      <% end %>
       <div class="star-ratings-sprite">
         <span style="width: <%= @ride.stars_rating %>%" class="star-ratings-sprite-rating"></span>
       </div>
@@ -53,9 +60,6 @@
     </div>
 
     <div class="bottom-column-actions">
-      <% if @ride.has_been_booked_by_user?(current_user) %>
-        <%= render 'reviews/new', ride: @ride, review: @review %>
-      <% end %>
       <div class='pt-3 text-center' id='ride-booking-dates' data-unavailable="<%= @ride.unavailable_dates.to_json %>">
         <% if current_user.id != @ride.user_id  %>
           <%= simple_form_for([@ride, @booking]) do |f| %>

@@ -35,7 +35,7 @@
             </p>
           </div>
           <% if booking.is_over? %>
-            <%= link_to "Leave a review", ride_path(booking.ride, anchor: 'review-form'), class: 'btn btn-primary btn-review btn-sm' %>
+            <%= link_to "Leave a review", new_ride_booking_review_path(booking.ride.id, booking.id), class: 'btn btn-primary btn-review btn-sm' %>
           <% end %>
         </div>
       </div>

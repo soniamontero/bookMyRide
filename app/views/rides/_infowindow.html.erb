@@ -1,16 +1,11 @@
-<div class="card profile-card-2 infowindow-card">
-  <div class="card-img-block infowindow-img">
+<div class="infowindow-card">
+  <div class="ride-photo">
     <% if ride.photo.present? %>
       <%= cl_image_tag ride.photo %>
     <% end %>
   </div>
 
   <div class="card-body">
-    <% if  ride.user.avatar %>
-      <%= cl_image_tag ride.user.avatar, class: "profile" %>
-    <% else %>
-      <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="profile-image" class="profile"/>
-    <% end %>
     <div class="card-text">
       <p class="category"><%= ride.category %> · <%= ride.location %></p>
     </div>
@@ -18,9 +13,9 @@
       <%= ride.name %></li>
     </h5>
     <div class="card-text">
-      <p>€<%= humanized_money_with_symbol(ride.price) %> per day</p>
-      <% if ride.global_rating == 0 %>
-        <p class="global-rating-new">New</p>
+      <p><%= humanized_money_with_symbol(ride.price) %> per day</p>
+      <% if ride.reviews.empty? %>
+        <p class="global-rating-new">No reviews yet</p>
       <% else %>
         <p class="global-rating"><%= ride.global_rating %></p>
       <% end %>

@@ -13,12 +13,19 @@
     width: 100%;
     justify-content: space-around;
   }
+
   #map {
   height: 100vh;
   position: sticky !important;
   /*flex-basis: 450px;*/
   flex: 0 1 300px;
   top: 0 !important;
+  }
+
+  @media (max-width: 620px) {
+    #map {
+      display: none;
+    }
   }
 }
 

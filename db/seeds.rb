@@ -7,31 +7,17 @@ users_photos_url = [
 ]
 
 rides_photos_url = [
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550564776/anastasiia-tarasova-576846-unsplash_1.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550564789/dillon-lobo-684080-unsplash_1.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565076/tommaso-pecchioli-711600-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565063/tucker-good-731992-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565060/serge-george-540157-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565050/nick-fewings-1307214-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565050/sebastian-frohlich-371643-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565035/end-injury-260185-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565029/fatih-ozturk-1368822-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565024/nadine-shaabana-1143297-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565018/hari-nandakumar-1089470-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1550565013/fredrick-suwandi-502014-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347382/yogesh-pedamkar-1268447-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347381/simson-petrol-225289-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347378/arthur-edelman-757807-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347377/oren-lonstein-1143763-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347370/matthew-bennett-418903-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347359/josh-edgoose-1144012-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347357/fancycrave-219657-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347356/maksym-potapenko-602588-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347346/ruben-mostad-1315271-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347327/bin-thi-u-252659-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347327/giovanni-corti-626267-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347325/francisco-requena-125276-unsplash.jpg',
-  'https://res.cloudinary.com/dtr76ppq2/image/upload/v1551347321/bayu-rivaldy-225227-unsplash.jpg'
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557997035/fks9napyzdkvdzk6gpeo.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557997031/izqcbmqaq9ocqune8fjq.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557997026/yjxwduhy0hjb1qhsvafh.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557997026/yjxwduhy0hjb1qhsvafh.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557997004/g8wtkdd7un08fx3caeyz.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557996999/ebtldvp5dyywohcxwrji.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557996987/o7isn1kdnk9wwfa7vrrz.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557996990/fstlqyogasb1ffpf5dlh.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557996969/dbbvlusczpnawycad1e6.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557996978/nbqrly1iequvjnycch5i.jpg',
+  'https://res.cloudinary.com/dtr76ppq2/image/upload/c_scale,w_1000/v1557996972/bsrciezttygchr0mgyoq.jpg'
 ]
 
 rides_names = [
@@ -77,6 +63,7 @@ ride = Ride.new(
   category: rides_categories.sample,
   price: rand(15..98),
   year: rand(1993..2019),
+  description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote + Faker::Quotes::Shakespeare.romeo_and_juliet_quote,
   location: sonia.location,
   user_id: sonia.id
 )
@@ -124,6 +111,7 @@ photo_index = 0
       price: rand(15..98),
       year: rand(1993..2019),
       location: user.location,
+      description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote + Faker::Quotes::Shakespeare.romeo_and_juliet_quote,
       user_id: user.id
     )
     ride.remote_photo_url = rides_photos_url.sample

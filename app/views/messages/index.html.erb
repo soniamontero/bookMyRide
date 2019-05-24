@@ -3,23 +3,27 @@
     <%= link_to 'Show Previous', '?m=all' %>
   <% end %>
   <div class="ui segment">
-    <% @messages.each do |message| %>
-      <% if message.body %>
-        <% user = User.find(message.user_id) %>
-        <div class="item">
-          <div class="content  pt-2 pb-2">
-            <div class="header">
-              <strong><%= user.first_name %></strong>
-              <%= message.message_time %>
-            </div>
-            <div class="list">
-              <div class="item">
-                <i class="right triangle icon"></i>
-                <p><%= message.body %></p>
+    <% if @messages.first.id.nil? %>
+      <p>You don't have any message yet. Start the conversation!</p>
+    <% else %>
+      <% @messages.each do |message| %>
+        <% if message.body %>
+          <% user = User.find(message.user_id) %>
+          <div class="item">
+            <div class="content  pt-2 pb-2">
+              <div class="header">
+                <strong><%= user.first_name %></strong>
+                <%= message.message_time %>
               </div>
-            </div>
-           </div>
-        </div>
+              <div class="list">
+                <div class="item">
+                  <i class="right triangle icon"></i>
+                  <p><%= message.body %></p>
+                </div>
+              </div>
+             </div>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
@@ -32,4 +36,6 @@
       <%= f.submit "Send", class: "btn-pink mb-2" %>
     </div>
   <% end %>
+  <%= link_to "back", request.referer.present? ? request.referer : default_path %>
+
 </div>

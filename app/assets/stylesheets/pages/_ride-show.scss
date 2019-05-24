@@ -49,7 +49,11 @@
     margin-top: 30px;
     margin-bottom: 30px;
     background-color: white;
-    }
+  }
+
+  .description {
+    padding-bottom: 8px;
+  }
 }
 
 .ride-title {
@@ -66,7 +70,6 @@
   .location {
     font-size: 16px;
     font-weight: 200;
-
   }
 }
 
@@ -78,8 +81,8 @@
   padding-top: 40px;
 
   .review {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     border-bottom: 1px solid #EBEBEB;
   }
 

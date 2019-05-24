@@ -1,23 +1,19 @@
 class ReviewsController < ApplicationController
   def new
-    @review = Review.new
+    @ride = Ride.find(params[:ride_id])
     @booking = Booking.find(params[:booking_id])
+    @review = Review.new
   end
 
   def create
     @review = Review.new(review_params)
-    @ride = Ride.find(params[:ride_id])
-    @review.booking_id = Booking.where(ride_id: @ride, user_id: current_user.id)
+    @booking = Booking.find(params[:booking_id])
+    @review.booking_id = @booking.id
+    @ride = @booking.ride
     if @review.save
-      respond_to do |format|
-        format.js # <-- will render `app/views/reviews/create.js.erb`
-        format.html { redirect_to ride_path(@ride) }
-      end
+      redirect_to ride_path(@ride)
     else
-      respond_to do |format|
-        format.html { render 'rides/show' }
-        format.js # <-- idem
-      end
+      redirect_to rides_path ## TO UPDATE
     end
   end
 

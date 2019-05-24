@@ -47,7 +47,6 @@ class RidesController < ApplicationController
       flash[:alert] = "You can't delete that bike. You have upcoming bookings."
       redirect_back(fallback_location: rides_path)
     else
-      byebug
       @ride.destroy
       redirect_back(fallback_location: rides_path)
     end
@@ -112,8 +111,8 @@ class RidesController < ApplicationController
   end
 
   def ride_params
-    params.require(:ride).permit(:name, :year, :price, :category, :location,
-                                 :global_rating, :photo)
+    params.require(:ride).permit(:name, :year, :price, :description, :category,
+                                 :location, :global_rating, :photo)
   end
 
   def set_ride

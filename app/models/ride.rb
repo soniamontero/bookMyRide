@@ -4,11 +4,12 @@ class Ride < ApplicationRecord
   has_many :reviews, through: :bookings
 
   validates :name, :category, :price, :location,
-            presence: true, length: { minimum: 10 }
-  validates :year,
-            numericality: { only_integer: true },
+            presence: true
+  validates :name, length: { minimum: 10 }
+  validates :year, numericality: { only_integer: true },
             inclusion: (1901..Time.now.year)
   validates :price, numericality: { greater_than: 0 }
+  validates :description, presence: true
 
   monetize :price_cents
 
@@ -19,13 +20,6 @@ class Ride < ApplicationRecord
 
   before_create :set_default_photo
 
-  def set_default_photo
-    if self.photo.blank?
-      url = "https://nonukes.nl/wp-content/themes/gonzo/images/no-image-featured-image.png"
-      self.remote_photo_url = url
-    end
-  end
-
   include PgSearch
   pg_search_scope :search_by_name_and_location,
     against: [:name, :location],
@@ -34,6 +28,13 @@ class Ride < ApplicationRecord
         prefix: true
       }
     }
+
+  def set_default_photo
+    if self.photo.blank?
+      url = "https://nonukes.nl/wp-content/themes/gonzo/images/no-image-featured-image.png"
+      self.remote_photo_url = url
+    end
+  end
 
   def has_upcoming_bookings?
     if bookings == []
@@ -53,7 +54,7 @@ class Ride < ApplicationRecord
 
   def has_been_booked_by_user?(user)
     if user.bookings.pluck(:ride_id).include?(self.id)
-      user.bookings.where(ride_id: self).first.date_end < Date.today
+      user.bookings.where("ride_id = ? AND date_end < ?", self.id, Date.today)
     end
   end
 
