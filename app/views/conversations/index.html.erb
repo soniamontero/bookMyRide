@@ -1,21 +1,27 @@
 <div class="conversation-wrapper-column">
   <div class="conversation-wrapper">
     <h5 class='mb-1 pt-2'>Your Bikes' Bookings</h5>
-    <% unless @users_bookings.nil? %>
-      <% @users_bookings.each do |booking| %>
-        <%= link_to conversations_path(sender_id: current_user.id, recipient_id: booking.user.id), method: 'post' do %>
-          <%= render 'conversation-card-users-bookings', booking: booking %>
+      <% if @users_bookings.empty? %>
+        <p>No conversations yet.</p>
+      <% else %>
+        <% @users_bookings.each do |booking| %>
+          <%= link_to conversations_path(sender_id: current_user.id, recipient_id: booking.user.id), method: 'post' do %>
+            <%= render 'conversation-card-users-bookings', booking: booking %>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
   </div>
 
   <div class=”conversation-wrapper”>
     <h5 class='mb-1 pt-4'>Your Bookings</h5>
-    <% @my_bookings.each do |booking| %>
-      <%= link_to conversations_path(sender_id: current_user.id, recipient_id: booking.ride.user.id), method: 'post' do %>
-        <% if booking.user_id == current_user.id %>
-          <%= render 'conversation-card-my-bookings', booking: booking %>
+    <% if @my_bookings.empty? %>
+      <p>No conversations yet.</p>
+    <% else %>
+      <% @my_bookings.each do |booking| %>
+        <%= link_to conversations_path(sender_id: current_user.id, recipient_id: booking.ride.user.id), method: 'post' do %>
+          <% if booking.user_id == current_user.id %>
+            <%= render 'conversation-card-my-bookings', booking: booking %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

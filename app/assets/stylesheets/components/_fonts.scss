@@ -7,7 +7,7 @@ a {
   color: gray;
   &:hover {
     text-decoration: none;
-    color: gray;
+    color: $dark-gray;
   }
 }
 
@@ -16,7 +16,7 @@ h2, h3 {
   text-transform: uppercase;
   font-weight: lighter;
   font-weight: 700;
-  color: #5a5a5a;
+  color: $black;
 }
 
 h2 {
@@ -28,7 +28,7 @@ h3 {
 }
 
 h6 {
-  color: #5a5a5a;
+  color: $black;
 }
 
 p {

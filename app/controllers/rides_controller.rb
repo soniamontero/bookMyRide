@@ -17,6 +17,7 @@ class RidesController < ApplicationController
   end
 
   def new
+    @categories = ['Scooter', 'Custom', 'Motorbike', 'Bicyle', 'Other']
     @ride = Ride.new
   end
 
@@ -24,8 +25,7 @@ class RidesController < ApplicationController
     @ride = Ride.new(ride_params)
     @ride.user_id = current_user.id if current_user
     if @ride.save
-
-      redirect_to rides_path
+      redirect_to ride_path(@ride)
     else
       render 'new'
     end
@@ -43,8 +43,13 @@ class RidesController < ApplicationController
 
   def destroy
     @ride = Ride.find(params[:id])
-    @ride.destroy
-    redirect_to rides_path
+    if @ride.has_upcoming_bookings? == true
+      flash[:alert] = "You can't delete that bike. You have upcoming bookings."
+      redirect_back(fallback_location: rides_path)
+    else
+      @ride.destroy
+      redirect_back(fallback_location: rides_path)
+    end
   end
 
   private
@@ -106,8 +111,8 @@ class RidesController < ApplicationController
   end
 
   def ride_params
-    params.require(:ride).permit(:name, :year, :price, :category, :location,
-                                 :global_rating, :photo)
+    params.require(:ride).permit(:name, :year, :price, :description, :category,
+                                 :location, :global_rating, :photo)
   end
 
   def set_ride

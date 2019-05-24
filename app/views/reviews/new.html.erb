@@ -1,0 +1,10 @@
+<div id="review-form">
+  <h4 class='text-center pt-3'>Time to review your bike!</h4>
+  <%= simple_form_for([@ride, @booking, @review]) do |f| %>
+    <%= f.input :title %>
+    <%= f.input :message %>
+    <%= f.input :rating %>
+    <%#= hidden_field_tag(:booking_id, params[:booking_id]) %>
+    <%= f.button :submit, "Submit Your Review", class: 'btn-pink' %>
+  <% end %>
+</div>

@@ -1,33 +1,41 @@
 .btn-pink {
-  background-color: #F6605E;
-  border: #F6605E;
+  background-color: $pink;
+  border: $pink;
   border-radius: 7px;
   color: white;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
 .btn-bike {
   border-radius: 7px;
   color: white;
-  padding: 5px;
+  padding: 8px;
   margin: 10px;
 }
 
-.add-review {
-  background-color: #F6605E;
-  border: #F6605E;
+.edit-btn {
+  background-color: $green;
+  border: $green;
+  font-size: 12px;
+  font-weight: 400;
+  color: $light-green;
 }
-
-.delete-review {
-  background-color: #5B3E3D;
-  border: #5B3E3D;
-}
-
-.edit-review {
-  background-color: #F2908E;
-  border: #F2908E;
+.delete-btn {
+  background-color: $dark-gray;
+  border: $dark-gray;
+  font-size: 12px;
+  font-weight: 400;
+  color: $light-gray;
 }
 
 .btn-back {
-  background-color: #B28180;
-  border: #B28180;
+  background-color: $dark-gray;
+  border: $dark-gray;
+}
+
+.btn-primary.btn-review {
+  margin-top: 10px;
 }

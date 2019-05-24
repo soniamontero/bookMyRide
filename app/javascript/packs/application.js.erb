@@ -12,12 +12,13 @@
 
 // toggleDateInputs()
 
-import flatpickr from "flatpickr";
+// import flatpickr from "flatpickr";
 import 'mapbox-gl/dist/mapbox-gl.css'; // <-- you need to uncomment the stylesheet_pack_tag in the layout!
 
 import { initMapbox } from '../plugins/init-mapbox';
 import { initFlatpickr } from '../plugins/init-flatpickr';
+import { initAutocomplete } from '../plugins/init_autocomplete';
 
 initMapbox();
-initFlatpickr;
+initAutocomplete();
 

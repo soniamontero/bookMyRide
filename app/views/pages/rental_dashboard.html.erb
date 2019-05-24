@@ -1,23 +1,94 @@
-<h4>My Rides</h4>
-<%= link_to 'Add Ride', new_ride_path %>
-<% @user.rides.each do |ride| %>
-  <p>Name: <%= ride.name %></p>
-  <p>Category<%= ride.category %></p>
-  <%= link_to "Edit this bike", edit_ride_path(ride), class:'btn-bike edit-review' %>
-  <%= link_to "Delete this bike", ride_path(ride), class: 'btn-bike delete-review', method: :delete, data: { confirm: 'Are you sure?' }  %>
-<% end %>
+<div class="rental-dashboard">
+  <div class="main-title pb-4">
+    <h4 class='mb-3'>My Bikes</h4>
+    <%= link_to '+ Add a New Bike', new_ride_path, class:"btn-pink mt-3" %>
+  </div>
 
-<h4>My Ride's Bookings</h4>
-<% @user.rides.each do |ride| %>
-  <% if ride.bookings %>
-    <% ride.bookings.each do |booking| %>
-      <p>Start date: <%= booking.date_begin %></p>
-      <p>End date: <%= booking.date_end %></p>
-      <p>Ride: <%= booking.ride.name %></p>
-      <p>Ride owner: <%= booking.ride.user.first_name %></p>
-      <p>Ride renter: <%= booking.user.first_name %></p>
+  <div class="rental-rides-index">
+    <% if @user.rides == [] %>
+      <p>You don't have any bike registered yet.</p>
+    <% else %>
+      <% @user.rides.each do |ride| %>
+        <%= link_to ride_path(ride) do %>
+          <div class="card profile-card-2 rental">
+            <div class="card-img-block">
+              <% if ride.photo.present? %>
+                <%= cl_image_tag ride.photo.url(:rides_card) %>
+              <% end %>
+            </div>
+
+            <div class="card-body rental-body">
+              <% if ride.user.avatar %>
+                <%= cl_image_tag ride.user.avatar, class: "profile" %>
+              <% else %>
+                <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="profile-image" class="profile"/>
+              <% end %>
+              <div class="card-text">
+                <p class="category"><%= ride.category %> · <%= ride.location %></p>
+              </div>
+              <h5 class="card-title">
+                <%= ride.name %>
+              </h5>
+              <div class="card-text">
+                <p>€<%= ride.price %> per day</p>
+                <% if ride.global_rating == 0 %>
+                  <p class="global-rating-new">New</p>
+                <% else %>
+                  <p class="global-rating"><%= ride.global_rating %></p>
+                <% end %>
+              </div>
+              <div class="card-buttons">
+                <%= link_to "Edit this bike", edit_ride_path(ride), class:'btn-bike edit-btn' %>
+                <%= link_to "Delete this bike", ride_path(ride), class: 'btn-bike delete-btn', method: :delete, data: { confirm: 'Are you sure?' }  %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
-  <% else %>
-    No booking yet
-  <% end %>
-<% end %>
+  </div>
+
+
+    <div class="user-bookings mt-5 pt-3">
+      <h4 class="mb-4">My Bike's Bookings</h4>
+      <% if @user.rides == [] %>
+        <p>You don't have any bike registered yet.</p>
+      <% else %>
+        <% @user.rides.each do |ride| %>
+          <% if ride.bookings %>
+            <% ride.bookings.each do |booking| %>
+              <div class="user-booking">
+                <div class="avatar">
+                  <%= cl_image_tag booking.ride.photo %>
+                </div>
+                <div class="details">
+                  <p>
+                    <i class="far fa-calendar"></i>
+                      <%= booking.date_begin.to_date.to_s(:long_ordinal) %>
+                    <i class="fas fa-arrow-right"></i>
+                      <%= booking.date_end.to_date.to_s(:long_ordinal) %>
+                  </p>
+                  <p>
+                    <strong>Payment status:</strong> <%= booking.state %>
+                  </p>
+                  <p>
+                    <strong>Ride:</strong> <%= link_to booking.ride.name, ride_path(booking.ride) %>
+                  </p>
+                  <p>
+                    <strong>Client:</strong>
+                    <%= booking.user.first_name %> <%=  booking.user.last_name %>
+                  </p>
+                  <p>
+                    <strong>Booking state:</strong>
+                    <span class="state-<%= booking.current_status[1] %>">
+                      <strong><%= booking.current_status[0].upcase %></strong>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>

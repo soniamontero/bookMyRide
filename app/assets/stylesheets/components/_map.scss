@@ -8,14 +8,18 @@
 }
 
 .infowindow-card {
+  width: 150px;
+  .ride-photo img {
+    max-width: 145px;
+  }
   p {
-    font-size: 12px;
+    margin-bottom: 1px;
+  }
+  h5 {
+    font-size: 15px;
+  }
+  .card-body {
+    padding: 2px;
   }
 }
 
-.infowindow-img {
-  height: 100px !important;
-   img {
-    position: inherit !important;
-  }
-}
