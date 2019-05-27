@@ -12,8 +12,6 @@
   def new
   end
 
-  # order  = Order.create!(teddy_sku: teddy.sku, amount: teddy.price, state: 'pending', user: current_user)
-
   def create
     @booking = Booking.new(booking_params)
     @ride = Ride.find(params[:ride_id])
@@ -23,8 +21,11 @@
     @booking.amount_cents = amount
     @booking.state = 'Payment pending'
     if @booking.save
-      redirect_to new_ride_booking_payment_path(@ride, @booking)
+      DeleteUnpaidBookingsJob.set(wait: 30.seconds).perform_later(@booking.id)
+      redirect_to new_ride_booking_payment_path(@ride, @booking), alert: "Confirm your booking by paying now. We block the bike for the next 10 minutes."
     else
+      p '---------------------------------'
+      p "#{@booking.errors.messages}"
       redirect_to ride_path(@ride)
     end
   end

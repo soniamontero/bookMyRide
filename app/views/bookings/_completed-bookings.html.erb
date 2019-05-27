@@ -19,9 +19,6 @@
           </p>
           <p>
             <strong>Status:</strong> <%= booking.state %>
-            <% if booking.state == 'Payment pending' %>
-              <%= link_to 'Pay now', new_ride_booking_payment_path(booking.ride, booking) %>
-            <% end %>
           </p>
           <p>
             <strong>Ride:</strong> <%= link_to booking.ride.name, ride_path(booking.ride) %>
