@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  url: <%= Rails.application.credentials.dig(Rails.env.to_sym, :redis, :url) { "redis://localhost:6379/1" } %>
   channel_prefix: bookMyRide_production

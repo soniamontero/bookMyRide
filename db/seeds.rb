@@ -87,6 +87,7 @@ photo_index = 0
   )
   user.remote_avatar_url = users_photos_url[photo_index]
   user.save!
+  p 'User added to the database'
 
   unless Ride.all.empty?
     booking = Booking.new(
