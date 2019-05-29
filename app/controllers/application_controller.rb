@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
   # as `authenticate_user!` (or whatever your resource is) will halt the filter chain and redirect
   # before the location can be stored.
 
-
   private
+
     # Its important that the location is NOT stored if:
     # - The request method is not GET (non idempotent)
     # - The request is handled by a Devise controller such as Devise::SessionsController as that could cause an
@@ -22,6 +22,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
-  stored_location_for(resource_or_scope) || super
+    stored_location_for(resource_or_scope) || super
   end
 end
