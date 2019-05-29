@@ -1,6 +1,6 @@
-$redis = Redis.new
+REDIS = Redis.new
 
-url = URI.parse(Rails.application.credentials.dig(Rails.env.to_sym, :redis, :url))
+url = Rails.application.credentials.dig(Rails.env.to_sym, :redis, :url)
 
 if url
   Sidekiq.configure_server do |config|
@@ -10,5 +10,5 @@ if url
   Sidekiq.configure_client do |config|
     config.redis = { url: url }
   end
-  $redis = Redis.new(:url => url)
+  REDIS = Redis.new(url: url)
 end
