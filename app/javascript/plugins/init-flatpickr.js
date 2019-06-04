@@ -5,7 +5,7 @@ if (startDateInput) {
 const unavailableDates = JSON.parse(document.querySelector('#ride-booking-dates').dataset.unavailable)
 endDateInput.disabled = true
 
-flatpickr("#booking_date_begin", {
+flatpickr(startDateInput, {
   minDate: "today",
   disable: unavailableDates,
   dateFormat: "Y-m-d",
@@ -16,7 +16,7 @@ startDateInput.addEventListener("change", (e) => {
   if (startDateInput != "") {
     endDateInput.disabled = false
   }
-  flatpickr("#booking_date_end", {
+  flatpickr(endDateInput, {
     minDate: e.target.value,
     disable: unavailableDates,
     dateFormat: "Y-m-d"
