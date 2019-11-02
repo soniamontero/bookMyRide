@@ -39,7 +39,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.3.1'
 gem 'simple_form'
-gem 'devise', '~> 4.6.0'
+gem 'devise', '~> 4.7.1'
 gem 'webpacker', '~> 3.5'
 gem "geocoder"
 gem 'dotenv-rails', groups: [:development, :test]
